@@ -3,4 +3,4 @@
 
 source bin/env.sh
 
-dcprod -f docker-compose.db.yml run --rm dbclient psql -h db -U '$DB_USER' '$DB_NAME'
+dcprod -f docker-compose.db.yml run --rm dbclient bash -c 'psql -h db -U $POSTGRES_USER $POSTGRES_DB'

@@ -31,3 +31,12 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# db backups
+backups/*.bak
+
+# frontend build artefacts
+frontend/dist/*.js
+frontend/dist/*.css
+frontend/dist/*.map
+frontend/dist/*.json

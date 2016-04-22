@@ -6,7 +6,7 @@
   "scripts": {
     "develop": "babel-node webpack/dev-server.js",
     "build": "NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config webpack/webpack.config.production.js --progress --profile --color",
-    "cleandist": "rm -rf /dist/*",
+    "cleandist": "rm -rf /frontend/dist/*",
     "build-prod": "npm run cleandist && npm run build"
   },
   "author": "domasx2@gmail.com",

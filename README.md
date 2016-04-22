@@ -3,6 +3,12 @@
 This is a starter project for a node + react app that uses docker for dev enironment.  
 Docker and docker-compose is all you need to develop, build & deploy, run development or production mode with a single command.
 
+## stack
+
+* stylus
+* react
+* redux
+* sequelize
 
 
 ## get started
@@ -12,6 +18,7 @@ https://www.docker.com/
 https://docs.docker.com/compose/
 
 Pull seed to your project:
+
 ```sh
 git init
 git remote add starter git@github.com:Producters/docker-node-react-starter.git
@@ -22,7 +29,7 @@ Start dev server:
 ```sh
 ./bin/develop.sh
 ```
-Wait for docker to set up container, then open [http://localhost:8000](http://localhost:8000)
+Wait for docker to set up dev env, then open [http://localhost:8000](http://localhost:8000)
 
 ## production mode
 
@@ -37,12 +44,13 @@ Wait for docker to set up container, then open [http://localhost:8000](http://lo
 ./bin/start_production.sh
 ```
 
-In prod mode sources are added to docker image rather than mounted from host. Nginx serves static files, proxy pass to gunicorn for django app. Logs in `logs` dir.
+In prod mode sources are added to docker image rather than mounted from host. Nginx serves static files, proxy pass to node for app. Logs in `logs` dir.
 
 #### enable ssl
 Copy your .key and .crt files to `nginx/ssl` and run `./bin/deploy.sh`. 
 
 ## install dependencies
+
 ```sh
 # frontend
 ./bin/npm_frontend.sh install [package] --save-dev
@@ -51,16 +59,18 @@ Copy your .key and .crt files to `nginx/ssl` and run `./bin/deploy.sh`.
 ./bin/npm_backend.sh install [package] --save
 ```
 
-## backup & restore database
+## database management
 
 ```sh
+# open psql session
+./bin/psql.sh
+
 # create a backup in backups dir
 ./bin/backup.sh 
 
 # restore from a backup in backups dir (server must be stopped)
 ./bin/restore.sh backups/somebackup.bak
 ```
-
 
 ## layout
 
@@ -93,3 +103,6 @@ nginx/nginx_ssl.conf          - nginx conf for deploy with ssl
 ```
 
 
+## tests
+
+@todo

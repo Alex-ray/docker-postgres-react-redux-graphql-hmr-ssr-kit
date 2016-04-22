@@ -5,7 +5,7 @@ services:
         depends_on:
             - db
         environment:
-            POSTGRES_DB: ${DB_NAME}
-            POSTGRES_USER: ${DB_USER}
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_USER: ${POSTGRES_USER}
         volumes:
             - "./backups:/backups"
