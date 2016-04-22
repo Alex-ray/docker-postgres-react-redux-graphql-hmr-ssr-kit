@@ -11,12 +11,13 @@ export default {
     },
     entry: [
         'webpack-dev-server/client?http://0.0.0.0:3000',
-        'webpack/hot/dev-server',
+        'webpack/hot/only-dev-server',
         ...base_config.entry
     ],
     plugins: [
         ...base_config.plugins,
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             '__DEV__': true,
             'process.env': JSON.stringify('development')

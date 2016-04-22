@@ -31,7 +31,5 @@ export default {
         ]
     },
     target: 'web',
-    plugins: [
-        new webpack.NoErrorsPlugin()
-    ]
+    plugins: []
 };
