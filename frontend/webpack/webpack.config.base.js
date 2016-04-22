@@ -12,9 +12,9 @@ export default {
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel',
+                loader: 'babel!eslint',
             },
             {
                 test: /\.css$/,

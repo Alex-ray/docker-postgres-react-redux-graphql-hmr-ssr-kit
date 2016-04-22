@@ -17,19 +17,12 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
-  	<Provider store={store}>
-		<Router history={history}>
-		  	<Route path="/" component={AppContainer}>
-		  		<IndexRoute component={HomeContainer} />
-				{/*
-				<Route path="packages" component={PackagesContainer}>
-					<IndexRoute component={PackageListContainer}/>
-					<Route path=":slug" component={PackageContainer}/>
-				</Route>
-				<Route path="*" component={NotFoundContainer}/>
-				*/}
-		  	</Route>
-		</Router>
-	</Provider>,
-	document.getElementById('mount')
+    <Provider store={store}>
+        <Router history={history}>
+            <Route path="/" component={AppContainer}>
+                <IndexRoute component={HomeContainer} />
+            </Route>
+        </Router>
+    </Provider>,
+    document.getElementById('mount')
 )
