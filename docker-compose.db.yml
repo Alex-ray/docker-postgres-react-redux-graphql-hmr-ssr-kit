@@ -1,0 +1,11 @@
+version: '2'
+services:
+    dbclient:
+        image: postgres:9.5
+        depends_on:
+            - db
+        environment:
+            POSTGRES_DB: ${DB_NAME}
+            POSTGRES_USER: ${DB_USER}
+        volumes:
+            - "./backups:/backups"

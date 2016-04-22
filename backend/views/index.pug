@@ -1,0 +1,10 @@
+html
+    head
+        title My App
+        each css in STATIC_ASSETS.css
+            link(rel="stylesheet", href=css)
+    body
+        #mount
+            h1 Loading...
+        each js in STATIC_ASSETS.js
+            script(src=js)

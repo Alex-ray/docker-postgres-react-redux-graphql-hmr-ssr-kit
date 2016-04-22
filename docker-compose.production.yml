@@ -1,0 +1,27 @@
+version: '2'
+services:
+    db:
+        volumes:
+            - "./logs/postgres:/var/log/postgresql"
+    backend:
+        build:
+            context: ./backend
+        environment:
+            NODE_ENV: ${NODE_ENV_PROD}
+        volumes:
+            - "./logs/app:/tmp/logs/app"
+        depends_on:
+            - db
+    nginx:
+        build:
+            context: ./
+            dockerfile: ./nginx/Dockerfile
+        depends_on:
+            - backend
+        volumes: 
+            - "./backend/media:/media"
+            - "./logs/nginx:/tmp/logs"
+        ports:
+            - "80:80"
+            - "443:443"
+

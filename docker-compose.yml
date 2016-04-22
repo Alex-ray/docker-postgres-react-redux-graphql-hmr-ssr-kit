@@ -1,0 +1,14 @@
+version: '2'
+services:
+    dbdata:
+        image: postgres:9.5
+        command: "true"
+
+    db:
+        image: postgres:9.5
+        environment:
+            POSTGRES_DB: ${DB_NAME}
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        volumes_from:
+            - dbdata
