@@ -22,6 +22,15 @@
                     "timestamp": "true"
                 }
             }
+        ],
+        "sql": [
+            {
+                "transport": "Console",
+                "options": {
+                    "level": "info",
+                    "timestamp": "true"
+                }
+            }
         ]
     }
 }

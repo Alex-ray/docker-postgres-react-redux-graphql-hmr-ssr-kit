@@ -11,6 +11,18 @@
                     "filename": "/tmp/logs/app/app_${time}.log"
                 }
             }
+        ],
+        "sql": [
+            {
+                "transport": "File",
+                "options": {
+                    "level": "info",
+                    "json": false,
+                    "timestamp": "true",
+                    "name": "app.log",
+                    "filename": "/tmp/logs/app/sql_${time}.log"
+                }
+            }
         ]
     }
 }
