@@ -1,0 +1,25 @@
+{
+    "port": 8000,
+    "host": "0.0.0.0",
+    
+    "database": {
+        "username": "appuser",
+        "database": "appdb",
+        "password": null,
+        "host": "db",
+        "port": 5432,
+        "dialect": "postgres"
+    },
+
+    "loggers": {
+        "default": [
+            {
+                "transport": "Console",
+                "options": {
+                    "level": "info",
+                    "timestamp": "true"
+                }
+            }
+        ]
+    }
+}

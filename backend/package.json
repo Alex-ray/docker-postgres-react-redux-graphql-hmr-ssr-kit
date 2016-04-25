@@ -4,13 +4,14 @@
   "description": "",
   "scripts": {
     "develop": "nodemon lib/index.js --exec babel-node",
-    "build": "babel lib -d dist",
-    "serve": "node dist/index.js"
+    "compile": "babel lib -d dist",
+    "serve": "node lib/index.js"
   },
   "author": "domas@producters.com",
   "license": "MIT",
   "dependencies": {
     "express": "^4.13.4",
+    "fs-extra": "^0.28.0",
     "nconf": "^0.8.4",
     "pug": "^2.0.0-alpha6",
     "sequelize": "^3.21.0",

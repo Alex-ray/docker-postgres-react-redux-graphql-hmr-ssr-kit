@@ -91,15 +91,40 @@ frontend/src/style/index.styl - stylesheet entry point. include other styl files
 backend/                      - backend stuff
 backend/lib/                  - node app
 backend/lib/index.js          - entry point
+backend/config/               - config
+backend/config/default.json   - config defaults
 backend/views/                - pug templates
 backend/Dockerfile            - production build dockerfile
-backend/media/                - user uploads
+backend/media/                - user uploads @TODO
 
 logs/                         - in prod mode app, gunicorn, nginx, postgres logs go here
 nginx/                        - nginx stuff for prod mode
 nginx/ssl/                    - put key & cert here if you use ssl
 nginx/nginx_nossl.conf        - nginx conf if no ssl is used
 nginx/nginx_ssl.conf          - nginx conf for deploy with ssl
+```
+
+## config
+
+Config files for backend are located at `config/*.json`.  
+If `config/[NODE_ENV].json` exists, values are loaded from it first. Then defaults are filled in from `config/default.json`;
+
+## logging
+
+[Winston](https://github.com/winstonjs/winston) is used for logging. Loggers and transport are configured via config files, see `config/default.json`.
+
+
+```js
+import logger, {getLogger} from 'winston';
+
+//default logger
+logger.info('logging to default');
+logger.error('bad thing happened');
+
+
+//custom logger, define transports in config
+let netlogger = getLogger('network');
+netlogger.info('network stuff');
 ```
 
 

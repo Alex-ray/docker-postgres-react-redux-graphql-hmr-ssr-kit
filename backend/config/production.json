@@ -1,0 +1,16 @@
+{
+    "loggers": {
+        "default": [
+            {
+                "transport": "File",
+                "options": {
+                    "level": "info",
+                    "json": false,
+                    "timestamp": "true",
+                    "name": "app.log",
+                    "filename": "/tmp/logs/app/app_${time}.log"
+                }
+            }
+        ]
+    }
+}

@@ -14,10 +14,6 @@ COPY assets.json ./dist/
 COPY config ./config
 
 #install deps, build, remove initial sources, dev deps
-RUN npm i -q
-
-RUN npm run build
-RUN npm prune -q --production
-RUN rm -rf lib
+RUN npm i -q && npm run compile && npm prune -q --production && rm -rf lib && mv ./dist ./lib
 
 CMD npm run serve
