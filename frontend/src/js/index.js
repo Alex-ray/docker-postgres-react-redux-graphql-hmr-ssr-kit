@@ -8,6 +8,7 @@ import configureStore from './store';
 
 import AppContainer from './containers/app-container';
 import HomeContainer from './containers/home-container';
+import NotesContainer from './containers/notes-container';
 
 import '../style/index.styl';
 
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Router history={history}>
             <Route path="/" component={AppContainer}>
                 <IndexRoute component={HomeContainer} />
+                <Route path="notes" component={NotesContainer} />
             </Route>
         </Router>
     </Provider>,

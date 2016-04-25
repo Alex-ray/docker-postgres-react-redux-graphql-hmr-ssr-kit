@@ -1,7 +1,10 @@
 import express from 'express';
+import bodyParser from 'body-parser';
+
 import logger from './logger';
 import conf from './conf';
 import models from './models';
+import api from './api';
 
 const PORT = conf.get('port');
 const HOST = conf.get('host');
@@ -10,9 +13,10 @@ logger.info(`initializing app with NODE_ENV=${process.env.NODE_ENV}`);
 
 const app = express();
 
-app.set('views', './views')
-app.set('view engine', 'pug')
+app.set('views', './views');
+app.set('view engine', 'pug');
 
+app.use(bodyParser.json());
 
 //compile a list of css & js files to load on page
 const STATIC_ASSETS = {
@@ -29,6 +33,8 @@ if (conf.get('webpack_dev_server')) {
     STATIC_ASSETS.css.push(manifest.main.css);
     STATIC_ASSETS.js.push(manifest.main.js);
 }
+
+app.use('/api', api);
 
 app.get('*',  function (req, res) {
     res.render('index', {STATIC_ASSETS});

@@ -1,7 +1,7 @@
 export default function(sequelize, DataTypes) {
-    const Note = sequelize.define("Notes", {
+    const Notes = sequelize.define("notes", {
         text: DataTypes.STRING
     });
 
-    return Note;
+    return Notes;
 };
