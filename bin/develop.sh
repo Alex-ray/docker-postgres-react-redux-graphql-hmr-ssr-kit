@@ -10,5 +10,7 @@ echo "installing backend deps"
 ./bin/npm_backend.sh i -q
 echo "installing frontend deps"
 ./bin/npm_frontend.sh i -q
+echo "running migrations"
+./bin/sequelize.sh db:migrate
 echo "starting"
 dcdev up

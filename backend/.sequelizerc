@@ -1,0 +1,21 @@
+"use strict";
+
+//it's hard to use babel with sequelize, this is a crappy workaround
+//https://github.com/sequelize/cli/issues/112
+try {
+    require('babel-register');
+} catch (e) {}
+
+const conf = require('./lib/conf').default;
+
+
+const NODE_ENV = process.env.NODE_ENV;
+
+const config = {
+    'migrations-path': 'lib/migrations',
+    config: __filename
+};
+
+config[NODE_ENV] = conf.get('database');
+
+module.exports =  config;

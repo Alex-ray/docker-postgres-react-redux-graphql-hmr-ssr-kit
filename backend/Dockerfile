@@ -9,9 +9,8 @@ WORKDIR /backend
 #install deps, build, remove initial sources, dev deps
 RUN npm i -q && \
     npm run compile && \
-    npm prune -q --production && \
-    rm -rf lib && \
-    mv ./dist ./lib && \
-    mv ./assets.json ./lib/assets.json
+    npm prune -q --production
 
-CMD npm run serve
+#migrate & run
+CMD ./node_modules/.bin/sequelize db:migrate && \
+    npm run serve

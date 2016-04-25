@@ -91,6 +91,8 @@ frontend/src/style/index.styl - stylesheet entry point. include other styl files
 backend/                      - backend stuff
 backend/lib/                  - node app
 backend/lib/index.js          - entry point
+backend/lib/models/           - sequelize model definitions
+backend/lib/migrations/       - sequelize migrations
 backend/config/               - config
 backend/config/default.json   - config defaults
 backend/views/                - pug templates
@@ -127,6 +129,15 @@ let netlogger = getLogger('network');
 netlogger.info('network stuff');
 ```
 
+## migrations
+
+```sh
+# create new migration
+./bin/sequelize.sh migration:create --name some_migration
+
+# run migrations
+./bin/sequelize.sh db:migrate
+```
 
 ## tests
 
