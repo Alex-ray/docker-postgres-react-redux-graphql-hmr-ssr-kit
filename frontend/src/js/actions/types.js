@@ -4,6 +4,29 @@ const types = {
     CREATE_NOTE: 'async'
 }
 
+/*
+transforms each value:
+
+{
+    FOO: null,
+    BAR: 'async'
+}
+
+becomes
+
+{
+    FOO: 'FOO',
+    BAR: {
+        REQUEST: 'BAR_REQUEST',
+        SUCCESS: 'BAR_SUCCESS',
+        FAILURE: 'BAR_FAILURE',
+        all: ['BAR_REQUEST' 'BAR_SUCCESS', 'BAR_FAILURE']
+    }
+}
+
+*/
+
+
 Object.keys(types).forEach(key => {
     if (types[key] === 'async') {
         types[key] = {

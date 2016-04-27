@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import autoprefixer from 'autoprefixer';
 
 export default {
     entry: [
@@ -18,11 +19,11 @@ export default {
             },
             {
                 test: /\.css$/,
-                loader: 'style!css'
+                loader: 'style!css!postcss'
             },
             {
                 test: /\.styl$/,
-                loader: 'style!css!stylus'
+                loader: 'style!css!postcss!stylus'
             },
             {
                 test: /\.(mp4|webm|mp3|ogg|wav|jpeg|jpg|bmp|ico|png|gif|ttf|otf|woff|eot)$/,
@@ -30,6 +31,7 @@ export default {
             }
         ]
     },
+    postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
     target: 'web',
     plugins: []
 };

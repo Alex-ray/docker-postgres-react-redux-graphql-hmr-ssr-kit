@@ -1,13 +1,17 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { apiMiddleware } from 'redux-api-middleware';
-import rootReducer from './reducers'
+import { routerMiddleware } from 'react-router-redux';
+import { browserHistory } from 'react-router';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
+
 
 export default function configureStore() {
     const store = createStore(
             rootReducer,
             compose(
-                applyMiddleware(apiMiddleware),
-                 window.devToolsExtension ? window.devToolsExtension() : f => f
+                applyMiddleware(apiMiddleware, thunk, routerMiddleware(browserHistory)),
+                window.devToolsExtension ? window.devToolsExtension() : f => f
             )
     );
 
