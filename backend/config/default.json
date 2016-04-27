@@ -2,6 +2,7 @@
     "port": 8000,
     "host": "0.0.0.0",
 
+    "serve_static_files": false,
     "webpack_dev_server": false,
 
     "database": {

@@ -1,0 +1,24 @@
+version: '2'
+services:
+    dbtest:
+        image: postgres:9.5
+        environment:
+            POSTGRES_DB: testdb
+            POSTGRES_USER: testuser
+    selenium:
+        image: selenium/standalone-chrome-debug:2.53.0
+        ports: 
+            - 5900:5900
+    testserver:
+        image: node:5.10
+        working_dir: /backend
+        command: npm run test
+        volumes:
+            - ./backend:/backend
+            - ./frontend/dist:/static
+        network_mode: "service:selenium"
+        environment:
+            NODE_ENV: test
+        depends_on:
+            - dbtest
+            - selenium

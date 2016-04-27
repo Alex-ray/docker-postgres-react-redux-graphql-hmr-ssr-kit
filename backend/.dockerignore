@@ -1,2 +1,4 @@
 Dockerfile
 media/*
+tests/*
+nightwatch.js

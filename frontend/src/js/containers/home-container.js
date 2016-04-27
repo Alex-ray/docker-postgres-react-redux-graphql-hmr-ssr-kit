@@ -5,7 +5,7 @@ export default class HomeContainer extends Component {
 
     render() {
         return (
-            <div>
+            <div className="home">
                 <h1>Example app</h1>
                 <p>Hi! This is an example app.</p>
                 <Link to="/notes">notes</Link>

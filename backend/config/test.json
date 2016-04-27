@@ -1,0 +1,12 @@
+{
+    "serve_static_files": true,
+
+    "database": {
+        "username": "testuser",
+        "database": "testdb",
+        "password": null,
+        "host": "dbtest",
+        "port": 5432,
+        "dialect": "postgres"
+    }
+}

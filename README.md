@@ -98,8 +98,11 @@ backend/config/default.json   - config defaults
 backend/views/                - pug templates
 backend/Dockerfile            - production build dockerfile
 backend/media/                - user uploads @TODO
+backend/package.json          - npm pacakge file with backend & test depos
+backend/nightwatch.json       - nigthwatch config
+backend/tests/specs/*         - nightwatch test specs
 
-logs/                         - in prod mode app, gunicorn, nginx, postgres logs go here
+logs/                         - in prod mode app, nginx logs go here
 nginx/                        - nginx stuff for prod mode
 nginx/ssl/                    - put key & cert here if you use ssl
 nginx/nginx_nossl.conf        - nginx conf if no ssl is used
@@ -141,4 +144,33 @@ netlogger.info('network stuff');
 
 ## tests
 
-@todo
+e2e tests are implemented using [nightwatch.js](http://nightwatchjs.org/). Test specs are located at `backend/tests/specs/`
+
+```sh
+
+#run tests
+./bin/test.sh
+
+# skip frontend build (eg, running tests repeatedly)
+./bin/test.sh --skipbuild 
+
+# keep selenium, vnc server & database running after tests end 
+# for fast next run & to keep vnc from disconnecting if debuggin
+./bin/test.sh --dontstop 
+ 
+# run a particular test file only
+./bin/test.sh -- --test tests/specs/auth.js
+
+# run particular test case only
+./bin/test.sh -- --test tests/specs/auth.js --testcase 'User can login via auth0'
+
+```
+
+
+To debug tests it's possible to vnc into selenium container while its running at localhost:5900 and view the browser. Password is `secret`.
+
+```sh
+sudo apt-get install vinagre # vnc client
+
+vinagre localhost:5900
+```
