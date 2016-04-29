@@ -10,6 +10,7 @@ import AppContainer from './containers/app-container';
 import HomeContainer from './containers/home-container';
 import NotesContainer from './containers/notes-container';
 
+import 'elemental/less/elemental.less';
 import '../style/index.styl';
 
 const store = configureStore();

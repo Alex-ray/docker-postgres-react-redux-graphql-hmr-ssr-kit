@@ -13,7 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "classnames": "^2.2.4",
+    "elemental": "^0.5.14",
     "react": "^15.0.1",
+    "react-addons-css-transition-group": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.2",
     "react-router": "^2.1.0",
@@ -38,6 +40,8 @@
     "eslint-plugin-react": "^5.0.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "less": "^2.6.1",
+    "less-loader": "^2.2.3",
     "postcss-loader": "^0.8.2",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.2",

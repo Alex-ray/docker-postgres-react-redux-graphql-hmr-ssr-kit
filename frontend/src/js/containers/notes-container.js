@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Form, FormField, FormInput, Button } from 'elemental';
 import * as notesActions from '../actions/notes';
 import NotesList from '../components/notes/list';
 
@@ -24,7 +26,8 @@ class NotesContainer extends Component {
         });
     }
 
-    createNote() {
+    createNote(e) {
+        e.preventDefault();
         this.props.actions.createNote({text: this.state.new_note});
         this.setState({
             new_note: ''
@@ -34,15 +37,21 @@ class NotesContainer extends Component {
     render() {
         return (
             <div className="notes">
+                <h1>Notes</h1>
+                <Link to="/">Go back</Link>
                 {
                     this.props.notes.length ? 
                     <NotesList delete={this.props.actions.deleteNote} notes={this.props.notes} /> :
                     <p>No notes.</p>
                 }
-                <div className="new-note">
-                    <input type="text" value={this.state.new_note} onChange={this.userInput.bind(this)}></input>
-                    <button disabled={!this.state.new_note} onClick={this.createNote.bind(this)}>Add</button>
-                </div>
+                <Form type="inline" onSubmit={this.createNote.bind(this)}>
+                    <FormField label="Text" html-for="text">
+                        <FormInput type="text" placeholder="Note text" value={this.state.new_note} onChange={this.userInput.bind(this)} />
+                    </FormField>
+                    <FormField>
+                        <Button disabled={!this.state.new_note} submit>Submit</Button>
+                    </FormField>
+                </Form>
             </div>
         )
     }

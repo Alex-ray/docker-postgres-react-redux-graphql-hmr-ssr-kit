@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router'
+import { Alert, Button } from 'elemental';
 
 export default class HomeContainer extends Component {
 
@@ -7,8 +8,10 @@ export default class HomeContainer extends Component {
         return (
             <div className="home">
                 <h1>Example app</h1>
-                <p>Hi! This is an example app.</p>
-                <Link to="/notes">notes</Link>
+                <Alert type="info">Hi! This is a sample app.</Alert>
+                <Link to="/notes">
+                    <Button>Go to notes</Button>
+                </Link>
             </div>
         )
     }

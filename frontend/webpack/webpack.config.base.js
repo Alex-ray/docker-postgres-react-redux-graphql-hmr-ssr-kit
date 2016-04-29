@@ -18,6 +18,10 @@ export default {
                 loader: 'babel!eslint',
             },
             {
+                test: /\.less$/,
+                loader: 'style!css!less'
+            },
+            {
                 test: /\.css$/,
                 loader: 'style!css!postcss'
             },
