@@ -4,7 +4,7 @@ services:
         ports:
             - "9432:5432" 
     frontend:
-        image: node:5.10
+        image: node:7.7
         working_dir: /frontend
         command: npm run develop
         volumes:
@@ -12,7 +12,7 @@ services:
         ports:
             - "3000:3000"
     backend:
-        image: node:5.10
+        image: node:7.7
         working_dir: /backend
         command: npm run develop
         volumes:

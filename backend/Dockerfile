@@ -10,6 +10,7 @@ WORKDIR /backend
 RUN npm i -q && \
     npm run compile && \
     npm prune -q --production
+    npm install -g yarn \
 
 #migrate & run
 CMD ./node_modules/.bin/sequelize db:migrate && \

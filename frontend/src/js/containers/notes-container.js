@@ -45,7 +45,7 @@ class NotesContainer extends Component {
                     <p>No notes.</p>
                 }
                 <Form type="inline" onSubmit={this.createNote.bind(this)}>
-                    <FormField label="Text" html-for="text">
+                    <FormField label="Text" htmlFor="text">
                         <FormInput type="text" placeholder="Note text" value={this.state.new_note} onChange={this.userInput.bind(this)} />
                     </FormField>
                     <FormField>

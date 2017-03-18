@@ -1,7 +1,7 @@
 version: '2'
 services:
     dbclient:
-        image: postgres:9.5
+        image: postgres:9.6
         depends_on:
             - db
         environment:

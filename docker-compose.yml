@@ -1,11 +1,11 @@
 version: '2'
 services:
     dbdata:
-        image: postgres:9.5
+        image: postgres:9.6
         command: "true"
 
     db:
-        image: postgres:9.5
+        image: postgres:9.6
         environment:
             POSTGRES_DB: ${POSTGRES_DB}
             POSTGRES_USER: ${POSTGRES_USER}

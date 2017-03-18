@@ -10,7 +10,7 @@ services:
         ports: 
             - 5900:5900
     testserver:
-        image: node:5.10
+        image: node:7.7
         working_dir: /backend
         command: npm run test
         volumes:
