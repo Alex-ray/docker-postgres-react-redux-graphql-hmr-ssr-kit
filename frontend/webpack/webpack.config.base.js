@@ -1,13 +1,19 @@
+import path from 'path';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 
+const root = process.cwd();
+const src  = path.join(root, 'src');
+const build = path.join(root, 'dist');
+
 export default {
-    entry: [
-        '/frontend/src/js/index.js'
-    ],
+    entry: {
+        bundle: path.join(src, 'js', 'index.js'),
+        store: path.join(src, 'js', 'store.js')
+    },
     devtool: 'source-map',
     output: {
-        path: '/frontend/dist/',
+        path: build,
         publicPath: '/static/',
     },
     module: {
@@ -24,10 +30,6 @@ export default {
             {
                 test: /\.css$/,
                 loader: 'style!css!postcss'
-            },
-            {
-                test: /\.styl$/,
-                loader: 'style!css!postcss!stylus'
             },
             {
                 test: /\.(mp4|webm|mp3|ogg|wav|jpeg|jpg|bmp|ico|png|gif|ttf|otf|woff|eot)$/,

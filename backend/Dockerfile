@@ -2,7 +2,7 @@
 FROM node:5.10
 
 # add code
-COPY . /backend
+COPY ./backend/. /backend
 
 WORKDIR /backend
 

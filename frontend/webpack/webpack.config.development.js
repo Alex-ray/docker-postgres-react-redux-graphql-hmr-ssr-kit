@@ -7,7 +7,7 @@ export default {
     output: {
         ...base_config.output,
         publicPath: 'http://localhost:3000' + base_config.output.publicPath,
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     entry: [
         'webpack-dev-server/client?http://0.0.0.0:3000',

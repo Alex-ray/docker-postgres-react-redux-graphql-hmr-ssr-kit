@@ -4,14 +4,11 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import configureStore from './store';
+import configureStore from './universal/store';
 
 import AppContainer from './containers/app-container';
 import HomeContainer from './containers/home-container';
 import NotesContainer from './containers/notes-container';
-
-import 'elemental/less/elemental.less';
-import '../style/index.styl';
 
 const store = configureStore();
 
