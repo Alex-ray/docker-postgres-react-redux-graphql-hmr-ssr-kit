@@ -3,30 +3,28 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 // Components
-import Counter from 'universal/modules/counter/components/Counter/Counter.js';
+import Counter from '../../components/Counter/Counter.js';
 
 // Actions
 import {
   incrementCount,
   decrementCount
-} from 'universal/modules/counter/ducks/counter.js';
+} from '../../ducks/counter.js';
 
-
-@connect(mapStateToProps, mapDispatchToProps)
 class CounterContainer extends Component {
-  static propTypes = {
-    // State
-    count: PropTypes.number.isRequired,
-
-    // Dispatchers
-    incrementCount: PropTypes.func.isRequired,
-    decrementCount: PropTypes.func.isRequired
-  }
-
   render () {
     return (<Counter {...this.props} />);
   }
 }
+
+CounterContainer.propTypes = {
+  // State
+  count: PropTypes.number.isRequired,
+
+  // Dispatchers
+  incrementCount: PropTypes.func.isRequired,
+  decrementCount: PropTypes.func.isRequired
+};
 
 
 function mapStateToProps(state, props) {
@@ -48,4 +46,4 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-export default CounterContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);

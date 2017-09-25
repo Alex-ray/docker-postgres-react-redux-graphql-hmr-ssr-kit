@@ -6,10 +6,21 @@ const root = process.cwd();
 const src  = path.join(root, 'src');
 const build = path.join(root, 'dist');
 
+// Cache vendor && client javascript on CDN...
+const vendor = [
+  'react',
+  'react-dom',
+  'react-router',
+  'react-redux',
+  'redux'
+];
+
 export default {
     entry: {
         bundle: path.join(src, 'js', 'index.js'),
-        // store: path.join(root, 'universal', 'redux', 'createStore.js'),
+        store: path.join(root, 'universal', 'redux', 'createStore.js'),
+        prerender: path.join(root, 'universal', 'routes', 'Routes.js'),
+        vendor,
     },
     devtool: 'source-map',
     output: {
@@ -21,7 +32,8 @@ export default {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: ['babel-loader','eslint-loader'],
+                // use: ['babel-loader','eslint-loader'],
+                use: ['babel-loader'],
             },
             {
                 test: /\.less$/,
