@@ -18,7 +18,17 @@ export default {
         loaders: base_config.module.loaders.map(function(conf) {
             return {
                 ...conf,
-                loader: conf.loader && conf.loader.includes('style!') ? ExtractTextPlugin.extract('style', conf.loader.replace('style!', '')) : conf.loader
+                loader: conf.use && (conf.use.indexOf('style-loader') !== -1) ? ExtractTextPlugin.extract({
+                  fallback: 'style-loader',
+                  use: [
+                    {loader: 'css-loader',
+                     options: {
+                       modules: true,
+                       importLoaders: 1,
+                       localIdentName: '[name]_[local]_[hash:base64:5]'
+                     }}
+                  ]
+                }) : conf.use
             }
         })
     },

@@ -6,26 +6,18 @@ services:
     frontend:
         image: node:7.7
         working_dir: /frontend
-        build:
-          context: ./
-          dockerfile: ./frontend/Dockerfile
         command: npm run develop
         volumes:
             - ./frontend:/frontend
-            - ./universal:/frontend/universal
         ports:
             - "3000:3000"
     backend:
         image: node:7.7
         working_dir: /backend
-        build:
-            context: ./
-            dockerfile: ./backend/Dockerfile
         command: npm run develop
         volumes:
             - ./backend:/backend
             - ./backend/media:/media
-            - ./universal:/backend/universal
         ports:
             - "8000:8000"
         environment:

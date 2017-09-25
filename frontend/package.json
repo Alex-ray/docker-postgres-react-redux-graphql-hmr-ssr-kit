@@ -13,11 +13,13 @@
   "license": "ISC",
   "dependencies": {
     "classnames": "^2.2.5",
+    "history": "^4.7.2",
+    "immutable": "^3.8.1",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
-    "react-router": "^3.0.2",
+    "react-router": "^4.2.0",
     "react-router-redux": "^4.0.8",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.2"
@@ -41,7 +43,7 @@
     "less-loader": "^2.2.3",
     "postcss-loader": "^0.8.2",
     "style-loader": "^0.13.1",
-    "webpack": "^1.12.14",
+    "webpack": "^3.6.0",
     "webpack-dev-server": "^1.14.1"
   }
 }
