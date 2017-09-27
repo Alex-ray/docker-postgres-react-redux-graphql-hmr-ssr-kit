@@ -3,6 +3,9 @@ import React from  'react';
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 
+// Containers
+import AppContainer from 'universal/containers/App/AppContainer.js';
+
 // Routes
 // For Development only
 import * as RouteMap from '../routes/static.js';
@@ -14,10 +17,12 @@ const Routes = ({ history }) => (
   <ConnectedRouter history={history} >
     {/* <Route component={({ ...routerProps }) => ( */}
     <Route component={() => (
-      <Switch>
-        <Route exact path='/' component={RouteMap.Home} />
-        <Route exact path='/counter' component={RouteMap.Counter} />
-      </Switch>
+      <AppContainer>
+        <Switch>
+          <Route exact path='/' component={RouteMap.Home} />
+          <Route exact path='/counter' component={RouteMap.Counter} />
+        </Switch>
+      </AppContainer>
     )} />
   </ConnectedRouter>
 );

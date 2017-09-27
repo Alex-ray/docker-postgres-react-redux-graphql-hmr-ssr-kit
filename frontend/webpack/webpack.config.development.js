@@ -6,11 +6,15 @@ const root = process.cwd();
 const SRC = root;
 const BUILD_DIR = path.join(root, 'dist');
 const ENTRY_FILE = path.join(root, 'index.js');
+const UNIVERSAL_SRC = path.join(root, 'univeral');
+
+const clientInclude = [SRC, UNIVERSAL_SRC];
 
 export default {
   devtool : 'eval',
   entry : {
-    bundle: ['babel-polyfill/dist/polyfill.js', 'webpack-dev-server/client?http://0.0.0.0:3000', 'webpack/hot/only-dev-server', ENTRY_FILE]
+    bundle: ['babel-polyfill/dist/polyfill.js', 'webpack-dev-server/client?http://0.0.0.0:3000',
+    'webpack/hot/only-dev-server', ENTRY_FILE]
   },
   output : {
     path: BUILD_DIR,
@@ -34,14 +38,21 @@ export default {
         exclude: /node_modules/,
         // use: ['babel-loader','eslint-loader'],
         use: ['babel-loader']
-      }, {
+      },
+
+      {
         test: /\.css$/,
+        include: clientInclude,
         use: [
+          {loader: 'style-loader'},
+          {loader: 'css-loader',
+          options: {
+            root: SRC,
+            modules: true,
+            importLoaders: 1,
+            localIdentName: '[name]_[local]_[hash:base64:5]'
+          }},
           {
-            loader: 'style-loader'
-          }, {
-            loader: 'css-loader'
-          }, {
             loader: 'postcss-loader',
             options: {
               plugins: function() {
@@ -50,7 +61,9 @@ export default {
             }
           }
         ]
-      }, {
+      },
+
+      {
         test: /\.(mp4|webm|mp3|ogg|wav|jpeg|jpg|bmp|ico|png|gif|ttf|otf|woff|eot)$/,
         use: ['file-loader?name=[path][name].[ext]?[hash]']
       }
