@@ -3,7 +3,6 @@ import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 
 const root = process.cwd();
-const src  = path.join(root, 'src');
 const build = path.join(root, 'dist');
 
 // Cache vendor && client javascript on CDN...
@@ -17,10 +16,10 @@ const vendor = [
 
 export default {
     entry: {
-        bundle: path.join(src, 'js', 'index.js'),
-        store: path.join(root, 'universal', 'redux', 'createStore.js'),
-        prerender: path.join(root, 'universal', 'routes', 'Routes.js'),
         vendor,
+        bundle: path.join(root, 'index.js'),
+        // store: path.join(root, 'universal', 'redux', 'createStore.js'),
+        // prerender: path.join(root, 'universal', 'routes', 'Routes.js'),
     },
     devtool: 'source-map',
     output: {
