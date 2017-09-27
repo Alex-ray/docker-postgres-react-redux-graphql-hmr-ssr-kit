@@ -18,10 +18,9 @@ services:
             dockerfile: ./nginx/Dockerfile
         depends_on:
             - backend
-        volumes: 
+        volumes:
             - "./backend/media:/media"
             - "./logs/nginx:/tmp/logs"
         ports:
             - "80:80"
             - "443:443"
-

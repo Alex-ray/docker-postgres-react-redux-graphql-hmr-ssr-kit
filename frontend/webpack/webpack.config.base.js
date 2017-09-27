@@ -1,41 +1,64 @@
+import path from 'path';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 
+const root = process.cwd();
+const build = path.join(root, 'dist');
+
+// Cache vendor && client javascript on CDN...
+const vendor = [
+  'react',
+  'react-dom',
+  'react-router',
+  'react-redux',
+  'redux'
+];
+
 export default {
-    entry: [
-        '/frontend/src/js/index.js'
-    ],
+    entry: {
+        vendor,
+        bundle: path.join(root, 'index.js'),
+        // store: path.join(root, 'universal', 'redux', 'createStore.js'),
+        // prerender: path.join(root, 'universal', 'routes', 'Routes.js'),
+    },
     devtool: 'source-map',
     output: {
-        path: '/frontend/dist/',
+        path: build,
         publicPath: '/static/',
     },
     module: {
         loaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel!eslint',
+                // use: ['babel-loader','eslint-loader'],
+                use: ['babel-loader'],
             },
             {
                 test: /\.less$/,
-                loader: 'style!css!less'
+                use: ['style-loader', 'css-loader', 'less-loader']
             },
             {
                 test: /\.css$/,
-                loader: 'style!css!postcss'
-            },
-            {
-                test: /\.styl$/,
-                loader: 'style!css!postcss!stylus'
+                use: [
+                  'style-loader',
+                  'css-loader',
+                  {
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: function () {
+                            return [ autoprefixer({ browsers: ['last 2 versions'] }) ]
+                        }
+                    }
+                  }
+                ]
             },
             {
                 test: /\.(mp4|webm|mp3|ogg|wav|jpeg|jpg|bmp|ico|png|gif|ttf|otf|woff|eot)$/,
-                loader: 'file?name=[path][name].[ext]?[hash]'
+                use: ['file-loader?name=[path][name].[ext]?[hash]']
             }
         ]
     },
-    postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
     target: 'web',
     plugins: []
 };

@@ -1,26 +1,41 @@
-import base_config from './webpack.config.base';
+import baseConfig from './webpack.config.base';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsWebpackPlugin from 'assets-webpack-plugin';
 
+function wrapStyleLoadersInExtractTextPlugin(loaders) {
+  let newLoaders = [ ];
+  for (let i = 0; i < loaders.length; i+=1 ) {
+    let loader = loaders[i];
+    let newLoader = {
+      ...loader,
+    };
+
+    if (loader.use && loader.use.indexOf('style-loader') !== -1) {
+        newLoaders.use = ExtractTextPlugin({
+          fallback: 'style-loader',
+          use: [...loader.use]
+        });
+    }
+
+    newLoaders.push(newLoader);
+  }
+
+  return newLoaders;
+}
+
 export default {
-    ...base_config,
+    ...baseConfig,
 
     output: {
-        ...base_config.output,
+        ...baseConfig.output,
         filename: '[hash]_bundle.js'
     },
 
     module: {
-        ...base_config.module,
-
+        ...baseConfig.module,
         //wrap style loaders with extract text plugin
-        loaders: base_config.module.loaders.map(function(conf) {
-            return {
-                ...conf,
-                loader: conf.loader && conf.loader.includes('style!') ? ExtractTextPlugin.extract('style', conf.loader.replace('style!', '')) : conf.loader
-            }
-        })
+        loaders: wrapStyleLoadersInExtractTextPlugin(baseConfig.module.loaders),
     },
 
     plugins: [
@@ -36,7 +51,7 @@ export default {
                 warnings: false
             }
         }),
-        new ExtractTextPlugin("[hash]_styles.css"),
+        new ExtractTextPlugin('[name].css'),
         new AssetsWebpackPlugin({filename: 'dist/assets.json'})
     ]
 };
