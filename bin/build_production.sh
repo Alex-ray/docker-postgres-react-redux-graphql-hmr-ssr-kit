@@ -1,12 +1,7 @@
 #!/bin/bash
 
 #builds production images
-
 source bin/env.sh
-
-echo "copying universal files"
-cp -R ./universal ./frontend
-cp -R ./universal ./backend
 
 echo "building frontend"
 ./bin/build_frontend.sh
@@ -14,6 +9,8 @@ echo "building frontend"
 echo "copying dependent build files into backend"
 cp ./frontend/dist/assets.json ./backend/dist/
 cp ./frontend/dist/prerender.js ./backend/dist/
+cp ./frontend/dist/prerender.css ./backend/dist/
+cp ./frontend/dist/store.js ./backend/dist/
 
 echo "building backend"
 dcprod build

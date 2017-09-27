@@ -32,10 +32,12 @@ class Html extends Component {
       prerender,
     } = assets || {};
 
+    console.log('assets : ', assets);
+
     const state = PROD ? JSON.stringify(state.getState()) : JSON.stringify({});
 
     const initialState = `window.__INITIAL_STATE__ = ${state}`;
-    const Layout =  PROD ? require( 'dist/prerender.js') : () => {};
+    const Layout =  PROD ? require( '../dist/prerender.js') : () => {};
 
     const root = PROD && renderToString(
       <Provider store={store}>
@@ -50,14 +52,14 @@ class Html extends Component {
        <head>
          <meta charSet="utf-8"/>
          <title>{title}</title>
-         {PROD && <link rel="stylesheet" href={app.css} type="text/css" />}
+         {PROD && <link rel="stylesheet" href={prerender.css} type="text/css" />}
        </head>
        <body>
          <script dangerouslySetInnerHTML={{__html: initialState}} />
          {PROD ? <div id="mount" dangerouslySetInnerHTML={{__html: root}}></div> : <div id="mount"></div>}
           {PROD && <script dangerouslySetInnerHTML={{__html: manifest.text}}/>}
           {PROD && <script src={vendor.js}/>}
-         <script src={PROD ? app.js : 'http://localhost:3000/static/bundle.js'} />
+         <script src={PROD ? bundle.js : 'http://localhost:3000/static/bundle.js'} />
        </body>
      </html>
     );

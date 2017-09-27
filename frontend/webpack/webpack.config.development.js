@@ -1,6 +1,5 @@
 import path from 'path';
 
-import base_config from './webpack.config.base';
 import webpack from 'webpack';
 
 const root = process.cwd();
@@ -22,7 +21,7 @@ export default {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({'__CLIENT__': true, '__PRODUCTION__': false, '__DEV__': true, 'process.env.NODE_ENV':, JSON.stringify('development')})
+    new webpack.DefinePlugin({'__CLIENT__': true, '__PRODUCTION__': false, '__DEV__': true, 'process.env.NODE_ENV': JSON.stringify('development')})
   ],
   resolve : {
     extensions: ['.js'],

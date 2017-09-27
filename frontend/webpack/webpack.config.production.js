@@ -3,7 +3,8 @@ import webpack from 'webpack';
 
 // Plugins
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import AssetsWebpackPlugin from 'assets-webpack-plugin';
+import AssetsPlugin from 'assets-webpack-plugin';
+
 
 const root = process.cwd();
 const SRC = root;
@@ -33,12 +34,12 @@ export default {
   resolve : {
     extensions: ['.js'],
     modules: [
-      src, 'node_modules'
+      SRC, 'node_modules'
     ],
     unsafeCache: true
   },
   plugins : [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NamedModulesPlugin(),
     new ExtractTextPlugin('[name].css'),
     new webpack.NormalModuleReplacementPlugin(/\.\.\/routes\/static/, '../routes/async'),
