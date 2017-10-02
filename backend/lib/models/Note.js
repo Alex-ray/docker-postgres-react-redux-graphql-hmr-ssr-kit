@@ -1,7 +1,15 @@
-export default function(sequelize, DataTypes) {
-    const Notes = sequelize.define("notes", {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function (sequelize, DataTypes) {
+    var Notes = sequelize.define("notes", {
         text: DataTypes.STRING
     });
 
     return Notes;
 };
+
+;

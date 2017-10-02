@@ -1,39 +1,61 @@
-import express from 'express';
-import bodyParser from 'body-parser';
+'use strict';
 
-import logger from './logger';
-import conf from './conf';
-import models from './models';
-import api from './api';
-import {
-  renderDevPage,
-  renderPage,
-} from './ssr.js';
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-const PROD = process.env.NODE_ENV === 'production';
+var _express = require('express');
 
-const PORT = conf.get('port');
-const HOST = conf.get('host');
+var _express2 = _interopRequireDefault(_express);
 
-const STATIC_ASSETS = {
+var _bodyParser = require('body-parser');
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
+var _logger = require('./logger');
+
+var _logger2 = _interopRequireDefault(_logger);
+
+var _conf = require('./conf');
+
+var _conf2 = _interopRequireDefault(_conf);
+
+var _models = require('./models');
+
+var _models2 = _interopRequireDefault(_models);
+
+var _api = require('./api');
+
+var _api2 = _interopRequireDefault(_api);
+
+var _ssr = require('./ssr.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PROD = process.env.NODE_ENV === 'production';
+
+var PORT = _conf2.default.get('port');
+var HOST = _conf2.default.get('host');
+
+var STATIC_ASSETS = {
     js: [],
     css: []
 };
 
-logger.info(`initializing app with NODE_ENV=${process.env.NODE_ENV}`);
+_logger2.default.info('initializing app with NODE_ENV=' + process.env.NODE_ENV);
 
-const app = express();
+var app = (0, _express2.default)();
 
-app.use(bodyParser.json());
+app.use(_bodyParser2.default.json());
 
 //used for tests
-if (conf.get('serve_static_files')) {
-    app.use('/static', express.static('/static'));
+if (_conf2.default.get('serve_static_files')) {
+    app.use('/static', _express2.default.static('/static'));
 }
 
-const render = PROD ? renderPage : renderDevPage;
+var render = PROD ? _ssr.renderPage : _ssr.renderDevPage;
 
-app.use('/api', api);
+app.use('/api', _api2.default);
 app.get('*', render);
 
-export default app;
+exports.default = app;
