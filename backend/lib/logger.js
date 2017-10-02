@@ -1,36 +1,52 @@
+'use strict';
 
-import fsExtra from 'fs-extra';
-import winston from 'winston';
-import conf from './conf';
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-const loggers = {};
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+exports.getLogger = getLogger;
 
-export function getLogger(name) {
+var _fsExtra = require('fs-extra');
+
+var _fsExtra2 = _interopRequireDefault(_fsExtra);
+
+var _winston = require('winston');
+
+var _winston2 = _interopRequireDefault(_winston);
+
+var _conf = require('./conf');
+
+var _conf2 = _interopRequireDefault(_conf);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var loggers = {};
+
+function getLogger(name) {
 
     if (loggers[name]) {
         return loggers[name];
     }
 
-    const transports = (conf.get('loggers')[name] || []).map(tconf => {
-        const options = {
-            ...tconf.options
-        };
+    var transports = (_conf2.default.get('loggers')[name] || []).map(function (tconf) {
+        var options = _extends({}, tconf.options);
 
         //if logging to file, insert timestamp & make sure file exists
         if (options.filename) {
-            options.filename = options.filename.replace('${time}', '_' +(new Date().toISOString()).substr(0, 19).replace('T', '_').replace(/\:/g, '-'));
-            fsExtra.ensureFileSync(options.filename);
+            options.filename = options.filename.replace('${time}', '_' + new Date().toISOString().substr(0, 19).replace('T', '_').replace(/\:/g, '-'));
+            _fsExtra2.default.ensureFileSync(options.filename);
         }
-        return new (winston.transports[tconf.transport])(options);
+        return new _winston2.default.transports[tconf.transport](options);
     });
 
-    const logger = new (winston.Logger)({
+    var logger = new _winston2.default.Logger({
         transports: transports
     });
-    
+
     loggers[name] = logger;
     return logger;
 }
 
-export default getLogger('default');
+exports.default = getLogger('default');

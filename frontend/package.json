@@ -6,8 +6,9 @@
   "scripts": {
     "develop": "babel-node webpack/dev-server.js",
     "build": "NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config webpack/webpack.config.production.js --progress --profile --color",
+    "build-server": "NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config webpack/webpack.config.server.js --progress --profile --color",
     "cleandist": "rm -rf /frontend/dist/*",
-    "build-prod": "npm run cleandist && npm run build"
+    "build-prod": "npm run cleandist && npm run build && npm run build-server"
   },
   "author": "domasx2@gmail.com",
   "license": "ISC",
@@ -39,7 +40,7 @@
     "eslint": "^2.8.0",
     "eslint-loader": "^1.3.0",
     "eslint-plugin-react": "^5.0.1",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.8.5",
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
