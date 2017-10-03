@@ -54,7 +54,7 @@ var renderPage = exports.renderPage = function renderPage(req, res) {
   var assets = require('/backend/dist/assets.json');
   var createStore = require('/backend/dist/store.js');
   var history = (0, _createMemoryHistory2.default)();
-  var store = createStore(history);
+  var store = createStore.default(history);
 
   console.log('RENDERING production : assets', assets);
 

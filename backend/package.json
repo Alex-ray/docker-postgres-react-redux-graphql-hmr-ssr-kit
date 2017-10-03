@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "develop": "nodemon lib/index.js --exec babel-node",
-    "compile": "babel lib -d lib",
-    "serve": "node lib/index.js",
+    "compile": "babel lib -d build",
+    "serve": "node build/index.js",
     "test": "babel-node ./node_modules/.bin/nightwatch -c ./nightwatch.json"
   },
   "author": "domas@producters.com",
