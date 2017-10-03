@@ -15,11 +15,6 @@ const PROD = process.env.NODE_ENV === 'production';
 const PORT = conf.get('port');
 const HOST = conf.get('host');
 
-const STATIC_ASSETS = {
-    js: [],
-    css: []
-};
-
 logger.info(`initializing app with NODE_ENV=${process.env.NODE_ENV}`);
 
 const app = express();
