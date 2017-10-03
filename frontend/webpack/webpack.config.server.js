@@ -14,6 +14,7 @@ const ENTRY_FILE = path.join(root, 'index.js');
 const vendor = ['react', 'react-dom', 'react-router', 'react-redux', 'redux'];
 
 export default {
+  target: 'node',
   entry : {
     // These need to go in a seperate server build.
     store: path.join(root, 'universal', 'redux', 'createStore.js'),
@@ -23,7 +24,8 @@ export default {
     filename: '[name].js',
     chunkFilename: '[name]_[chunkhash].js',
     path: BUILD_DIR,
-    publicPath: '/static/'
+    libraryTarget: 'commonjs2',
+    publicPath: '/'
   },
   resolve : {
     extensions: ['.js'],

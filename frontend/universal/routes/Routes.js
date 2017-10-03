@@ -1,7 +1,6 @@
 // Libraries
 import React from  'react';
 import { Route, Switch } from 'react-router';
-import { ConnectedRouter } from 'react-router-redux';
 
 // Containers
 import AppContainer from 'universal/containers/App/AppContainer.js';
@@ -14,17 +13,17 @@ import * as RouteMap from '../routes/static.js';
 // import * as RouteMap from '../routes/async.js';
 
 const Routes = ({ history }) => (
-  <ConnectedRouter history={history} >
-    {/* <Route component={({ ...routerProps }) => ( */}
+  <Switch>
     <Route component={() => (
       <AppContainer>
+        {/* <Route component={({ ...routerProps }) => ( */}
         <Switch>
           <Route exact path='/' component={RouteMap.Home} />
           <Route exact path='/counter' component={RouteMap.Counter} />
         </Switch>
       </AppContainer>
     )} />
-  </ConnectedRouter>
+  </Switch>
 );
 
 

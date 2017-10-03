@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import createStore from './universal/redux/createStore';
 
@@ -13,7 +14,9 @@ const mountEl = document.getElementById('mount');
 const renderApp = (Component) => {
     render(
       <Provider store={store}>
-        <Routes history={history}/>
+        <ConnectedRouter history={history} >
+          <Routes history={history}/>
+        </ConnectedRouter>
       </Provider>,
       mountEl
     );

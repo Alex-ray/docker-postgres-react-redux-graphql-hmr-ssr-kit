@@ -1,111 +1,69 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _server = require('react-dom/server');
-
-var _reactRedux = require('react-redux');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Libraries
-
+// Libraries
+import React, {Component, PropTypes} from 'react';
+import path from 'path';
+import {StaticRouter} from 'react-router';
+import {renderToString} from 'react-dom/server';
 
 // Redux
+import { Provider } from 'react-redux';
 
+const PROD = process.env.NODE_ENV === 'production';
 
-var PROD = process.env.NODE_ENV === 'production';
-
-var Html = function (_Component) {
-  _inherits(Html, _Component);
-
-  function Html() {
-    _classCallCheck(this, Html);
-
-    return _possibleConstructorReturn(this, (Html.__proto__ || Object.getPrototypeOf(Html)).apply(this, arguments));
+class Html extends Component {
+  static propTypes = {
+    url: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    store: PropTypes.object,
+    assets: PropTypes.object
   }
 
-  _createClass(Html, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          title = _props.title,
-          assets = _props.assets,
-          store = _props.store,
-          url = _props.url,
-          context = _props.context;
+  render () {
+    const {
+      title,
+      assets,
+      store,
+      url,
+      context
+    } = this.props;
 
-      var _ref = assets || {},
-          manifest = _ref.manifest,
-          app = _ref.app,
-          vendor = _ref.vendor,
-          prerender = _ref.prerender;
+    const {
+      manifest,
+      bundle,
+      vendor,
+      prerender,
+    } = assets || {};
 
-      console.log('assets : ', assets);
+    const state = PROD ? JSON.stringify(store.getState()) : JSON.stringify({});
 
-      var state = PROD ? JSON.stringify(state.getState()) : JSON.stringify({});
+    const initialState = `window.__INITIAL_STATE__ = ${state}`;
+    const Layout =  PROD ? require( path.join(__dirname,'dist', 'prerender.js')) : () => {};
 
-      var initialState = 'window.__INITIAL_STATE__ = ' + state;
-      var Layout = PROD ? require('../dist/prerender.js') : function () {};
+    const root = PROD && renderToString(
+      <Provider store={store}>
+        <StaticRouter location={url} context={context}>
+          <Layout />
+        </StaticRouter>
+      </Provider>
+    );
 
-      var root = PROD && (0, _server.renderToString)(_react2.default.createElement(
-        _reactRedux.Provider,
-        { store: store },
-        _react2.default.createElement(
-          _reactRouter.StaticRouter,
-          { location: url, context: context },
-          _react2.default.createElement(Layout, null)
-        )
-      ));
+    return (
+     <html>
+       <head>
+         <meta charSet="utf-8"/>
+         <title>{title}</title>
+       {PROD && <link rel="stylesheet" href={'http://localhost:3000/static/prerender.css'} type="text/css" />}
+       </head>
+       <body>
+         <script dangerouslySetInnerHTML={{__html: initialState}} />
+         {PROD ? <div id="mount" dangerouslySetInnerHTML={{__html: root}}></div> : <div id="mount"></div>}
+          {PROD && <script dangerouslySetInnerHTML={{__html: manifest.text}}/>}
+          {PROD && <script src={vendor.js}/>}
+         <script src={PROD ? bundle.js : 'http://localhost:3000/static/bundle.js'} />
+       </body>
+     </html>
+    );
+  }
 
-      return _react2.default.createElement(
-        'html',
-        null,
-        _react2.default.createElement(
-          'head',
-          null,
-          _react2.default.createElement('meta', { charSet: 'utf-8' }),
-          _react2.default.createElement(
-            'title',
-            null,
-            title
-          ),
-          PROD && _react2.default.createElement('link', { rel: 'stylesheet', href: prerender.css, type: 'text/css' })
-        ),
-        _react2.default.createElement(
-          'body',
-          null,
-          _react2.default.createElement('script', { dangerouslySetInnerHTML: { __html: initialState } }),
-          PROD ? _react2.default.createElement('div', { id: 'mount', dangerouslySetInnerHTML: { __html: root } }) : _react2.default.createElement('div', { id: 'mount' }),
-          PROD && _react2.default.createElement('script', { dangerouslySetInnerHTML: { __html: manifest.text } }),
-          PROD && _react2.default.createElement('script', { src: vendor.js }),
-          _react2.default.createElement('script', { src: PROD ? bundle.js : 'http://localhost:3000/static/bundle.js' })
-        )
-      );
-    }
-  }]);
+}
 
-  return Html;
-}(_react.Component);
-
-Html.propTypes = {
-  url: _react.PropTypes.string.isRequired,
-  title: _react.PropTypes.string.isRequired,
-  store: _react.PropTypes.object,
-  assets: _react.PropTypes.object
-};
-exports.default = Html;
+export default Html;
