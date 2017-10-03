@@ -10,7 +10,11 @@ import {renderToString} from 'react-dom/server';
 import createHistory from 'history/createMemoryHistory'
 
 // Components
-import Html from '/backend/lib/Html.js';
+import Html from './Html.js';
+
+import assets from './dist/assets.json';
+import createStore  from './dist/store.js';
+
 
 function renderApp(url, res, store, assets) {
   const context = {};
@@ -32,14 +36,10 @@ export const renderDevPage = function (req, res) {
 }
 
 export const renderPage = function (req, res) {
-  const assets = require('/backend/dist/assets.json');
-  const createStore  = require('/backend/dist/store.js');
   const history = createHistory( );
   const store   = createStore(history);
 
-  console.log('RENDERING production : assets', assets);
-
-  assets.manifest.text = fs.readFileSync(`/backend/dist/${assets.manifest.js}`, 'utf-8');
+  assets.manifest.text = fs.readFileSync(join(__dirname,'dist', assets.manifest.js), 'utf-8');
 
   renderApp(req.url, res, store, assets);
 };

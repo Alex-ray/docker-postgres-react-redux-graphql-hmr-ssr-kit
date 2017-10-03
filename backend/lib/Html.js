@@ -1,5 +1,6 @@
 // Libraries
 import React, {Component, PropTypes} from 'react';
+import path from 'path';
 import {StaticRouter} from 'react-router';
 import {renderToString} from 'react-dom/server';
 
@@ -27,17 +28,15 @@ class Html extends Component {
 
     const {
       manifest,
-      app,
+      bundle,
       vendor,
       prerender,
     } = assets || {};
 
-    console.log('assets : ', assets);
-
-    const state = PROD ? JSON.stringify(state.getState()) : JSON.stringify({});
+    const state = PROD ? JSON.stringify(store.getState()) : JSON.stringify({});
 
     const initialState = `window.__INITIAL_STATE__ = ${state}`;
-    const Layout =  PROD ? require( '../dist/prerender.js') : () => {};
+    const Layout =  PROD ? require( path.join(__dirname,'dist', 'prerender.js')) : () => {};
 
     const root = PROD && renderToString(
       <Provider store={store}>
@@ -52,7 +51,7 @@ class Html extends Component {
        <head>
          <meta charSet="utf-8"/>
          <title>{title}</title>
-         {PROD && <link rel="stylesheet" href={prerender.css} type="text/css" />}
+       {PROD && <link rel="stylesheet" href={'http://localhost:3000/static/prerender.css'} type="text/css" />}
        </head>
        <body>
          <script dangerouslySetInnerHTML={{__html: initialState}} />

@@ -29,7 +29,7 @@ export default {
     filename: '[name]_[chunkhash].js',
     chunkFilename: '[name]_[chunkhash].js',
     path: BUILD_DIR,
-    publicPath: '/static/'
+    publicPath: '/'
   },
   resolve : {
     extensions: ['.js'],
