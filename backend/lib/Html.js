@@ -51,7 +51,8 @@ class Html extends Component {
        <head>
          <meta charSet="utf-8"/>
          <title>{title}</title>
-       {PROD && <link rel="stylesheet" href={'http://localhost:3000/static/prerender.css'} type="text/css" />}
+       {PROD && <link rel="stylesheet" href={'/static/prerender.css'} type="text/css" />}
+       {PROD && <link rel="stylesheet" href={'/static/bundle.css'} type="text/css" />}
        </head>
        <body>
          <script dangerouslySetInnerHTML={{__html: initialState}} />

@@ -12,8 +12,10 @@ import createHistory from 'history/createMemoryHistory'
 // Components
 import Html from './Html.js';
 
-import assets from './dist/assets.json';
-import createStore  from './dist/store.js';
+const PROD = process.env.NODE_ENV === 'production';
+
+const assets = PROD ? require('./dist/assets.json') : {};
+const createStore = PROD ? require('./dist/store.js') : () => {};
 
 
 function renderApp(url, res, store, assets) {

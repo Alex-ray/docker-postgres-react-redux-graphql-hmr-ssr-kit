@@ -80,7 +80,6 @@ export default {
             {
               loader: 'css-loader',
               options: {
-                root: SRC,
                 modules: true,
                 importLoaders: 1,
                 localIdentName: '[name]_[local]_[hash:base64:5]'
