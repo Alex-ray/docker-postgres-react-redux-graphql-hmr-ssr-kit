@@ -1,4 +1,36 @@
-# docker-node-react-starter
+# BLK MAGIC
+
+TODO:
+Install these things.
+
+- 'rxjs
+- 'reselect'
+- 'redux-actions'
+
+What is it?
+Basically my ideal full stack starter kit, ready for deployment. Getting the configuration out of the way.
+⚡
+- Docker
+- Docker Scripts (production, development, backup and deployment)
+- Postgres
+- Sequelize
+- Node
+- Nginx (CDN)
+- React
+- React Router 4
+- Redux
+- Server Side Rendering
+- Code Splitting / Lazy Loading
+- Hot Module Reloading
+- Graphql, (sequelize-graphql, rxjs-graphql)
+- RxJs, (redux-observables, rxjs-graphql)
+- Optomistic UI ???
+- CSS Next
+- Webpack
+- Passport for authentication
+⚡
+
+---
 
 This is a starter project for a node + react app that uses docker for dev enironment.  
 Docker and docker-compose is all you need to develop, build & deploy, run development or production mode with a single command.
@@ -47,7 +79,7 @@ Wait for docker to set up dev env, then open [http://localhost:8000](http://loca
 In prod mode sources are added to docker image rather than mounted from host. Nginx serves static files, proxy pass to node for app. Logs in `logs` dir.
 
 #### enable ssl
-Copy your .key and .crt files to `nginx/ssl` and run `./bin/deploy.sh`. 
+Copy your .key and .crt files to `nginx/ssl` and run `./bin/deploy.sh`.
 
 ## install dependencies
 
@@ -66,7 +98,7 @@ Copy your .key and .crt files to `nginx/ssl` and run `./bin/deploy.sh`.
 ./bin/psql.sh
 
 # create a backup in backups dir
-./bin/backup.sh 
+./bin/backup.sh
 
 # restore from a backup in backups dir (server must be stopped)
 ./bin/restore.sh backups/somebackup.bak
@@ -152,12 +184,12 @@ e2e tests are implemented using [nightwatch.js](http://nightwatchjs.org/). Test 
 ./bin/test.sh
 
 # skip frontend build (eg, running tests repeatedly)
-./bin/test.sh --skipbuild 
+./bin/test.sh --skipbuild
 
-# keep selenium, vnc server & database running after tests end 
+# keep selenium, vnc server & database running after tests end
 # for fast next run & to keep vnc from disconnecting if debuggin
-./bin/test.sh --dontstop 
- 
+./bin/test.sh --dontstop
+
 # run a particular test file only
 ./bin/test.sh -- --test tests/specs/auth.js
 

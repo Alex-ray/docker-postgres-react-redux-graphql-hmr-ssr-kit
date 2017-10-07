@@ -7,8 +7,8 @@ import Counter from '../../components/Counter/Counter.js';
 
 // Actions
 import {
-  incrementCount,
-  decrementCount
+  counterSetCount,
+  counterCountSelector,
 } from '../../ducks/counter.js';
 
 class CounterContainer extends Component {
@@ -27,21 +27,17 @@ CounterContainer.propTypes = {
 };
 
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state, ownProps) {
   const count = state.counter.get('count');
   return {
-    count
+    count: counterCountSelector(state, ownProps),
   };
 }
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    incrementCount: () => {
-      dispatch(incrementCount());
-    },
-    decrementCount: () => {
-      dispatch(decrementCount());
-    }
+    incrementCount: count => dispatch(counterSetCount(count+1)),
+    decrementCount: count => dispatch(counterSetCount(count-1))
   };
 }
 
