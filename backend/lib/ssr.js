@@ -41,7 +41,7 @@ export const renderPage = function (req, res) {
   const history = createHistory( );
   const store   = createStore(history);
 
-  assets.manifest.text = fs.readFileSync(join(__dirname,'dist', assets.manifest.js), 'utf-8');
+  assets.manifest.text = fs.readFileSync(join(__dirname, assets.manifest.js), 'utf-8');
 
   renderApp(req.url, res, store, assets);
 };
