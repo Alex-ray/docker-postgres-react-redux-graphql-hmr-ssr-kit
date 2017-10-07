@@ -17,12 +17,12 @@ class Counter extends Component {
 
   handleIncrementClick (incrementCount, event) {
     this.handleLinkClick(event);
-    incrementCount(this.props.count);
+    incrementCount(this.props.count+1);
   }
 
   handleDecrementClick(decrementCount, event) {
     this.handleLinkClick(event);
-    decrementCount(this.props.count);
+    decrementCount(this.props.count-1);
   }
 
   render () {

@@ -36,8 +36,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    incrementCount: count => dispatch(counterSetCount(count+1)),
-    decrementCount: count => dispatch(counterSetCount(count-1))
+    incrementCount: count => dispatch(counterSetCount(count)),
+    decrementCount: count => dispatch(counterSetCount(count))
   };
 }
 

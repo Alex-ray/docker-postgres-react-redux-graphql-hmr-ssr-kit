@@ -15,7 +15,7 @@ const initialState = iMap({
 
 // Reducer
 export default handleActions({
-  COUNTER_SET: (state, { payload: { count } }) => (state.set('count', count))
+  [COUNTER_SET_COUNT]: (state, { payload: { count } }) => (state.set('count', count))
 }, initialState);
 
 // Actions
@@ -26,7 +26,7 @@ export const {
 });
 
 // Selectors
-export const counterCountSelector = (state, ownProps) => state.count.get('count');
+export const counterCountSelector = (state, ownProps) => state.counter.get('count');
 
 // Epcis
 const counterSetCountEpic = action$ =>
