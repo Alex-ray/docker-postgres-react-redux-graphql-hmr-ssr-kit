@@ -1,21 +1,23 @@
 module.exports = {
     up: function(queryInterface, Sequelize) {
         return queryInterface.createTable('counters', {
-            id: {
+           id: {
               type: Sequelize.INTEGER,
-              allowNull: false,
-              autoIncrement: true,
-              primaryKey: true
+              primaryKey: true,
+              autoIncrement: true
             },
             createdAt: {
-                allowNull: false,
-                type: Sequelize.DATE
+              allowNull: false,
+              type: Sequelize.DATE
             },
             updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE
+              allowNull: false,
+              type: Sequelize.DATE
             },
-            value: Sequelize.INTEGER
+            value: {
+              type: Sequelize.INTEGER,
+              allowNull: false,
+            }
         });
     },
 

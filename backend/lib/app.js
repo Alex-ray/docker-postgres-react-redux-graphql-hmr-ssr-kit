@@ -31,6 +31,8 @@ if (conf.get('serve_static_files')) {
 
 const schema = getSchema(sequelize);
 
+console.log('Schema : ', schema);
+
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   graphiql: true
