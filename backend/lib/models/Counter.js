@@ -1,9 +1,8 @@
 export default function(sequelize, DataTypes) {
-    const counters = sequelize.define("counters", {
+    const Counter = sequelize.define('Counter', {
         id: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.UUID,
           primaryKey: true,
-          autoIncrement: true
         },
         value: {
           type: DataTypes.INTEGER,
@@ -13,5 +12,5 @@ export default function(sequelize, DataTypes) {
       timestamps: true,
     });
 
-    return counters;
+    return Counter;
 };

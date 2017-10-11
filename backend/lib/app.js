@@ -2,12 +2,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import graphqlHTTP from 'express-graphql';
-import { getSchema } from 'graphql-sequelize-crud';
+import schema from './graphql';
 
 import logger from './logger';
 import conf from './conf';
 import models, { sequelize } from './models';
-import api from './api';
 import {
   renderDevPage,
   renderPage,
@@ -29,18 +28,13 @@ if (conf.get('serve_static_files')) {
     app.use('/static', express.static('/static'));
 }
 
-const schema = getSchema(sequelize);
-
-console.log('Schema : ', schema);
-
 app.use('/graphql', graphqlHTTP({
   schema: schema,
-  graphiql: true
+  graphiql: PROD,
 }));
 
 const render = PROD ? renderPage : renderDevPage;
 
-app.use('/api', api);
 app.get('*', render);
 
 export default app;

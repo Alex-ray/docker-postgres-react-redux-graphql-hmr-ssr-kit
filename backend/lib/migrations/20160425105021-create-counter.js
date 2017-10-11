@@ -1,10 +1,9 @@
 module.exports = {
     up: function(queryInterface, Sequelize) {
-        return queryInterface.createTable('counters', {
+        return queryInterface.createTable('Counter', {
            id: {
-              type: Sequelize.INTEGER,
-              primaryKey: true,
-              autoIncrement: true
+              type: Sequelize.UUID,
+              primaryKey: true
             },
             createdAt: {
               allowNull: false,
@@ -16,12 +15,12 @@ module.exports = {
             },
             value: {
               type: Sequelize.INTEGER,
-              allowNull: false,
+              allowNull: false
             }
         });
     },
 
     down: function(queryInterface, Sequelize) {
-        return queryInterface.dropTable('counters');
+        return queryInterface.dropTable('Counter');
     }
 }
