@@ -14,7 +14,7 @@ export default {
   devtool : 'eval',
   entry : {
     bundle: ['babel-polyfill/dist/polyfill.js', 'webpack-dev-server/client?http://0.0.0.0:3000',
-    'webpack/hot/only-dev-server', ENTRY_FILE]
+    'webpack/hot/only-dev-server', 'whatwg-fetch', ENTRY_FILE]
   },
   output : {
     path: BUILD_DIR,

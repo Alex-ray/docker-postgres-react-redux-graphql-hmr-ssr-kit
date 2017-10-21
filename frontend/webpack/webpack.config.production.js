@@ -18,7 +18,7 @@ export default {
   entry : {
     vendor,
     bundle: [
-      'babel-polyfill/dist/polyfill.js', ENTRY_FILE
+      'babel-polyfill/dist/polyfill.js', 'whatwg-fetch', ENTRY_FILE
     ],
     // These need to go in a seperate server build.
     // store: path.join(root, 'universal', 'redux', 'createStore.js'),

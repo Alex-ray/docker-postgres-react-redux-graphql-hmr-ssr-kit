@@ -19,7 +19,8 @@ const Routes = ({ history }) => (
         {/* <Route component={({ ...routerProps }) => ( */}
         <Switch>
           <Route exact path='/' component={RouteMap.Home} />
-          <Route exact path='/counter' component={RouteMap.Counter} />
+          <Route exact path='/' component={RouetMap.Counters} />
+          <Route exact path='/counter/:counterId' component={RouteMap.Counter} />
         </Switch>
       </AppContainer>
     )} />
