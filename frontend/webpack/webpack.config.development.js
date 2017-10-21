@@ -25,7 +25,13 @@ export default {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({'__CLIENT__': true, '__PRODUCTION__': false, '__DEV__': true, 'process.env.NODE_ENV': JSON.stringify('development')})
+    new webpack.DefinePlugin({
+      '__CLIENT__': true,
+      '__PRODUCTION__': false,
+      '__DEV__': true,
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      'process.env.API_URL': JSON.stringify('localhost:8000')
+    })
   ],
   resolve : {
     extensions: ['.js'],

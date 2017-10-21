@@ -62,7 +62,12 @@ export default {
     }),
     new AssetsPlugin({path: BUILD_DIR, filename: 'assets.json'}),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({'__CLIENT__': true, '__PRODUCTION__': true, 'process.env.NODE_ENV': JSON.stringify('production')})
+    new webpack.DefinePlugin({
+      '__CLIENT__': true,
+      '__PRODUCTION__': true,
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.API_URL': JSON.stringify('')
+    })
   ],
 
   module : {
