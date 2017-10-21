@@ -1,5 +1,5 @@
 # production dockerfile
-FROM node:7.5.0
+FROM node:7.6.0
 
 # add code
 COPY . /backend

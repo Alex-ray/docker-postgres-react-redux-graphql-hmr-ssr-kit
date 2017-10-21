@@ -1,10 +1,11 @@
 import GraphQLToolsSequelize from "graphql-tools-sequelize";
 import GraphQLToolsTypes from "graphql-tools-types";
+import { makeExecutableSchema } from "graphql-tools";
 
 import { sequelize } from '../models';
 
 const graphQLTools = new GraphQLToolsSequelize(sequelize);
-await graphQLTools.boot();
+graphQLTools.boot();
 
 const typeDefs = `
   schema {
@@ -20,9 +21,10 @@ const typeDefs = `
   }
   type Counter {
     id: UUID!
-    value: Integer
+    value: Int
     createdAt: Date
     updatedAt: Date
+    ${graphQLTools.entityCloneSchema("Counter")}
     ${graphQLTools.entityCreateSchema("Counter")}
     ${graphQLTools.entityUpdateSchema("Counter")}
     ${graphQLTools.entityDeleteSchema("Counter")}
@@ -33,6 +35,7 @@ const resolvers = {
   UUID: GraphQLToolsTypes.UUID({ name: "UUID", storage: "string" }),
   JSON: GraphQLToolsTypes.JSON({ name: "JSON" }),
   Date: GraphQLToolsTypes.Date({ name: "Date" }),
+
   Root: {
     Counter: graphQLTools.entityQueryResolver("Root", "", "Counter"),
     Counters:  graphQLTools.entityQueryResolver("Root", "", "Counter*"),
@@ -45,7 +48,7 @@ const resolvers = {
 
 };
 
-const schema = GraphQLTools.makeExecutableSchema({
+const schema = makeExecutableSchema({
     typeDefs: [ typeDefs ],
     resolvers: resolvers
 });

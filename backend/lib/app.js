@@ -28,9 +28,14 @@ if (conf.get('serve_static_files')) {
     app.use('/static', express.static('/static'));
 }
 
-app.use('/graphql', graphqlHTTP({
+app.post('/graphql', graphqlHTTP({
   schema: schema,
-  graphiql: PROD,
+  graphiql: false
+}));
+
+app.get('/graphql', graphqlHTTP({
+  schema: schema,
+  graphiql: !PROD
 }));
 
 const render = PROD ? renderPage : renderDevPage;
