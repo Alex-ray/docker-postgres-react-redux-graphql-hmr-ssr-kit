@@ -2,13 +2,17 @@
 import 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import {Map as iMap, fromJS} from 'immutable';
-// import { createSelector } from 'reselect';
+import { createSelector } from 'reselect';
 import { createActions, handleActions } from 'redux-actions';
 
 import {
   getCounters,
   countersQuerySchema,
 } from 'universal/graphql/counter.js';
+
+import {
+  locationCurrentCounterId
+} from 'universal/modules/location/ducks/location.js';
 
 // Action Types
 export const COUNTER_FETCH_COUNTERS = 'COUNTER_FETCH_COUNTERS';
@@ -44,8 +48,12 @@ export default handleActions({
 // Actions
 export const {
   counterSetCount,
+  counterSetCountSuccess,
+  counterSetCountError,
 } = createActions({
-  COUNTER_SET_COUNT: count => ({ count }),
+  COUNTER_SET_COUNT: (id, count) => ({ id, count }),
+  COUNTER_SET_COUNT_SUCCESS: (id, count) => ({ id, count }),
+  COUNTER_SET_COUNT_ERROR: (error) => ({ error }),
 });
 
 export const {
@@ -59,14 +67,24 @@ export const {
 });
 
 // Selectors
-export const counterCountSelector = (state, ownProps) => state.counter.get('count');
-export const counterCountersSelector = (state, ownProps) => state.counter.get('counters');
+export const counterCountersSelector = (state, ownProps) => (state.counter.get('counters'))
+
+export const counterCurrentCounterSelector = createSelector(
+  counterCountersSelector,
+  locationCurrentCounterId,
+  (counters, currentCounterId) => ( counters.get(currentCounterId) )
+);
+
+export const counterCurrentCounterCountSelector = createSelector(
+  counterCurrentCounterSelector,
+  (currentCounter) => ( currentCounter ? currentCounter.get('value') : 0 )
+);
 
 // Epcis
 const counterSetCountEpic = action$ =>
   action$.ofType(COUNTER_SET_COUNT)
-    .mergeMap(({ payload: { count }}) => {
-      console.log('counter epic!!! : setting count ', count);
+    .mergeMap(({ payload: { id, count }}) => {
+      console.log('counter epic!!! : setting count ', count, id);
       // BOOG
       return Observable.of({});
       // api.getCampaignRefferralModuleLinks(campaignId, data, apiKey, userId)
