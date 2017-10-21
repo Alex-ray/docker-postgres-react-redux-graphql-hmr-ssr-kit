@@ -4,10 +4,12 @@ import { Observable } from 'rxjs/Observable';
 const domain = process.env.API_URL;
 const url = `${domain}/graphql`;
 
-export const get = ({ schema }) => {
+export const get = (schema) => {
   return Observable.from(
     fetch(`${url}?query=${schema}`, {
       method: 'GET'
+    }).then((data) => {
+      return data.json()
     })
   );
 }

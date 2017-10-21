@@ -1,12 +1,13 @@
 // Libs
 import 'rxjs';
 import { Observable } from 'rxjs/Observable';
-import {Map as iMap} from 'immutable';
+import {Map as iMap, fromJS} from 'immutable';
 // import { createSelector } from 'reselect';
 import { createActions, handleActions } from 'redux-actions';
 
 import {
   getCounters,
+  countersQuerySchema,
 } from 'universal/graphql/counter.js';
 
 // Action Types
@@ -17,17 +18,26 @@ export const COUNTER_FETCH_COUNTERS_ERROR = 'COUNTER_FETCH_COUNTERS_ERROR';
 export const COUNTER_SET_COUNT = 'COUNTER_SET_COUNT';
 
 // Inital State
-const initialState = iMap({
+const initialState = fromJS({
   counters: {},
   count: 0,
 });
 
 // Reducer
 export default handleActions({
-  [COUNTER_SET_COUNT]: (state, { payload: { count } }) => (state.set('count', count))
-  [COUNTER_FETCH_COUNTERS_SUCCESS]: (state, { payload }) => {
-      console.log('COUNTER_FETCH_COUNTERS_SUCCESS ', payload);
-    return state;
+  [COUNTER_SET_COUNT]: (state, { payload: { count } }) => (state.set('count', count)),
+  [COUNTER_FETCH_COUNTERS_SUCCESS]: (state, { payload: { counters } }) => {
+    let countersData = (counters.data && counters.data.Counters) ? counters.data.Counters : [];
+    let counterMap = {};
+
+    for (let i = 0; i < countersData.length; i++) {
+      let counter = countersData[i];
+      counterMap[counter.id] = counter;
+    }
+
+    let currentCounters = state.get('counters');
+    let newCounters = currentCounters.merge(counterMap);
+    return state.set('counters', newCounters);
   }
 }, initialState);
 
@@ -50,6 +60,7 @@ export const {
 
 // Selectors
 export const counterCountSelector = (state, ownProps) => state.counter.get('count');
+export const counterCountersSelector = (state, ownProps) => state.counter.get('counters');
 
 // Epcis
 const counterSetCountEpic = action$ =>
@@ -66,9 +77,7 @@ const counterSetCountEpic = action$ =>
 const counterFetchCountersEpic = action$ =>
   action$.ofType(COUNTER_FETCH_COUNTERS)
     .mergeMap(({ payload }) => {
-      const payload = getCounters();
-      console.log('payload : ', payload);
-      return Observable.fromPromise(payload);
+      return  getCounters()
                .map(res => counterFetchCountersSuccess(res))
                .catch(err => Observable.of(counterFetchCountersError(err)))
     });

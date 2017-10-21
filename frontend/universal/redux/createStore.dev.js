@@ -1,12 +1,11 @@
 import {
   createStore,
-  applyMiddleware
+  applyMiddleware,
   compose,
 } from 'redux';
 
 import { routerMiddleware } from 'react-router-redux';
 import { createEpicMiddleware } from 'redux-observable';
-import { routerMiddleware } from 'react-router-redux';
 
 import reducers, { rootEpic } from '../modules/root.js';
 

@@ -34,7 +34,7 @@ export const createCounterMutation = ({ value = 0 }) => (`
     }
 `);
 
-export const getCounters   = () => (get(counterQuerySchema()));
+export const getCounters   = () => (get(countersQuerySchema({ limit: 100 })));
 export const getCounter    = (id) => (get(counterQuerySchema({ id })));
 export const createCounter = (value) => (get(updateCounterMutation({ value })));
 export const updateCounter = (id, value) => (get(updateCounterMutation({ id, value })));

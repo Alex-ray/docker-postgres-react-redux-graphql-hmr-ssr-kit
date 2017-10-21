@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-
+  counterFetchCounters,
+  counterCountersSelector,
 } from 'universal/modules/counter/ducks/counter.js';
 
 class CountersContainer extends Component {
@@ -19,13 +20,15 @@ class CountersContainer extends Component {
   }
 }
 
-function mapStateToProps () {
-  return {};
+function mapStateToProps (state, ownProps) {
+  return {
+    counters: counterCountersSelector(state, ownProps),
+  };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchCounters: dispatch()
+    fetchCounters: () => (dispatch(counterFetchCounters()))
   };
 }
 
