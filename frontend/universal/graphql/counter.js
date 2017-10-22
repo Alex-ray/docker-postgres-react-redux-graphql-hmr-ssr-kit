@@ -32,7 +32,7 @@ export const updateCounterMutation = ({ id, value }) => (`
 export const createCounterMutation = ({ value = 0 }) => (`
     mutation {
       Counter {
-        create(with:{value: ${value}}}) {
+        create(with:{value: ${value}}) {
           id,
           value,
         }

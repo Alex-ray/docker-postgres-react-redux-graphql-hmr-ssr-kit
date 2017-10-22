@@ -42,11 +42,11 @@ const initialState = fromJS({
 
 // Reducer
 export default handleActions({
-  [COUNTER_DELETE_COUNTER_SUCCESS]: (state, { payload: id }) => {
+  [COUNTER_DELETE_COUNTER_SUCCESS]: (state, { payload: { id } }) => {
     return state.deleteIn(['counters', id]);
   },
-  [COUNTER_CREATE_COUNTER_SUCCESS]: (state, { payload: counter }) => {
-    return state.setIn(['counters', counter.id], fromJS(counter));
+  [COUNTER_CREATE_COUNTER_SUCCESS]: (state, { payload: { id, value } }) => {
+    return state.setIn(['counters', id], fromJS({ id, value }));
   },
   [COUNTER_SET_COUNT_SUCCESS]: (state, {payload: { id, count }}) => {
     return state.setIn(['counters', id, 'value'], count);
@@ -93,7 +93,7 @@ export const {
   counterCreateCounterError,
 } = createActions({
   COUNTER_CREATE_COUNTER: () => ({}),
-  COUNTER_CREATE_COUNTER_SUCCESS: counter => ({ counter }),
+  COUNTER_CREATE_COUNTER_SUCCESS: ({id, value}) => ({ id, value }),
   COUNTER_CREATE_COUNTER_ERROR: error => ({ error }),
 });
 
@@ -126,14 +126,14 @@ const counterCreateCounterEpic = action$ =>
   action$.ofType(COUNTER_CREATE_COUNTER)
     .mergeMap(() => {
       return createCounter()
-              .map(res => counterCreateCounterSuccess(res))
+              .map(res => counterCreateCounterSuccess(res.data.Counter.create))
               .catch(error => Observable.of(counterCreateCounterError(error)))
     });
 
 const counterDeleteCounterEpic = action$ =>
   action$.ofType(COUNTER_DELETE_COUNTER)
     .mergeMap(({ payload: { id }}) => {
-      return deleteCounter()
+      return deleteCounter(id)
               .map(res => counterDeleteCounterSuccess(id))
               .catch(error => Observable.of(counterDeleteCounterError(error)))
     });
