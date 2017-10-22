@@ -7,6 +7,9 @@ import { createActions, handleActions } from 'redux-actions';
 
 import {
   getCounters,
+  updateCounter,
+  createCounter,
+  deleteCounter,
   countersQuerySchema,
 } from 'universal/graphql/counter.js';
 
@@ -20,6 +23,16 @@ export const COUNTER_FETCH_COUNTERS_SUCCESS = 'COUNTER_FETCH_COUNTERS_SUCCESS';
 export const COUNTER_FETCH_COUNTERS_ERROR = 'COUNTER_FETCH_COUNTERS_ERROR';
 
 export const COUNTER_SET_COUNT = 'COUNTER_SET_COUNT';
+export const COUNTER_SET_COUNT_SUCCESS = 'COUNTER_SET_COUNT_SUCCESS';
+export const COUNTER_SET_COUNT_ERROR = 'COUNTER_SET_COUNT_ERROR';
+
+export const COUNTER_CREATE_COUNTER = 'COUNTER_CREATE_COUNTER';
+export const COUNTER_CREATE_COUNTER_SUCCESS = 'COUNTER_CREATE_COUNTER_SUCCESS';
+export const COUNTER_CREATE_COUNTER_ERROR = 'COUNTER_CREATE_COUNTER_ERROR';
+
+export const COUNTER_DELETE_COUNTER = 'COUNTER_DELETE_COUNTER';
+export const COUNTER_DELETE_COUNTER_SUCCESS = 'COUNTER_DELETE_COUNTER_SUCCESS';
+export const COUNTER_DELETE_COUNTER_ERROR = 'COUNTER_DELETE_COUNTER_ERROR';
 
 // Inital State
 const initialState = fromJS({
@@ -29,7 +42,15 @@ const initialState = fromJS({
 
 // Reducer
 export default handleActions({
-  [COUNTER_SET_COUNT]: (state, { payload: { count } }) => (state.set('count', count)),
+  [COUNTER_DELETE_COUNTER_SUCCESS]: (state, { payload: id }) => {
+    return state.deleteIn(['counters', id]);
+  },
+  [COUNTER_CREATE_COUNTER_SUCCESS]: (state, { payload: counter }) => {
+    return state.setIn(['counters', counter.id], fromJS(counter));
+  },
+  [COUNTER_SET_COUNT_SUCCESS]: (state, {payload: { id, count }}) => {
+    return state.setIn(['counters', id, 'value'], count);
+  },
   [COUNTER_FETCH_COUNTERS_SUCCESS]: (state, { payload: { counters } }) => {
     let countersData = (counters.data && counters.data.Counters) ? counters.data.Counters : [];
     let counterMap = {};
@@ -53,7 +74,7 @@ export const {
 } = createActions({
   COUNTER_SET_COUNT: (id, count) => ({ id, count }),
   COUNTER_SET_COUNT_SUCCESS: (id, count) => ({ id, count }),
-  COUNTER_SET_COUNT_ERROR: (error) => ({ error }),
+  COUNTER_SET_COUNT_ERROR: (error) => ({ error })
 });
 
 export const {
@@ -64,6 +85,26 @@ export const {
   COUNTER_FETCH_COUNTERS: () => ({}),
   COUNTER_FETCH_COUNTERS_SUCCESS: (counters) => ({ counters }),
   COUNTER_FETCH_COUNTERS_ERROR: error => ({ error })
+});
+
+export const {
+  counterCreateCounter,
+  counterCreateCounterSuccess,
+  counterCreateCounterError,
+} = createActions({
+  COUNTER_CREATE_COUNTER: () => ({}),
+  COUNTER_CREATE_COUNTER_SUCCESS: counter => ({ counter }),
+  COUNTER_CREATE_COUNTER_ERROR: error => ({ error }),
+});
+
+export const {
+  counterDeleteCounter,
+  counterDeleteCounterSuccess,
+  counterDeleteCounterError,
+} = createActions({
+  COUNTER_DELETE_COUNTER: id => ({ id }),
+  COUNTER_DELETE_COUNTER_SUCCESS: id => ({ id }),
+  COUNTER_DELETE_COUNTER_ERROR: error => ({ error }),
 });
 
 // Selectors
@@ -81,15 +122,28 @@ export const counterCurrentCounterCountSelector = createSelector(
 );
 
 // Epcis
+const counterCreateCounterEpic = action$ =>
+  action$.ofType(COUNTER_CREATE_COUNTER)
+    .mergeMap(() => {
+      return createCounter()
+              .map(res => counterCreateCounterSuccess(res))
+              .catch(error => Observable.of(counterCreateCounterError(error)))
+    });
+
+const counterDeleteCounterEpic = action$ =>
+  action$.ofType(COUNTER_DELETE_COUNTER)
+    .mergeMap(({ payload: { id }}) => {
+      return deleteCounter()
+              .map(res => counterDeleteCounterSuccess(id))
+              .catch(error => Observable.of(counterDeleteCounterError(error)))
+    });
+
 const counterSetCountEpic = action$ =>
   action$.ofType(COUNTER_SET_COUNT)
     .mergeMap(({ payload: { id, count }}) => {
-      console.log('counter epic!!! : setting count ', count, id);
-      // BOOG
-      return Observable.of({});
-      // api.getCampaignRefferralModuleLinks(campaignId, data, apiKey, userId)
-      //   .map(res => campaignReferralLinksSuccess(campaignId, res))
-      //   .catch(err => Observable.of(campaignReferralLinksError(campaignId, err.message)))
+      return updateCounter(id, count)
+              .map(res => counterSetCountSuccess(id, count))
+              .catch(error => Observable.of(counterSetCountError(error)))
     });
 
 const counterFetchCountersEpic = action$ =>
@@ -102,5 +156,7 @@ const counterFetchCountersEpic = action$ =>
 
 export const counterEpics = [
   counterFetchCountersEpic,
-  // counterSetCountEpic,
+  counterSetCountEpic,
+  counterCreateCounterEpic,
+  counterDeleteCounterEpic,
 ];

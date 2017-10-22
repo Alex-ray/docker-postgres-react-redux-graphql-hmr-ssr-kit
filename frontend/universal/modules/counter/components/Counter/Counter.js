@@ -5,9 +5,10 @@ import classNames from 'classnames';
 class Counter extends Component {
 
   static propTypes = {
+    id: PropTypes.string.isRequired,
+    count: PropTypes.number.isRequired,
     incrementCount: PropTypes.func.isRequired,
     decrementCount: PropTypes.func.isRequired,
-    count: PropTypes.number.isRequired
   }
 
   handleLinkClick(event) {
@@ -16,13 +17,23 @@ class Counter extends Component {
   }
 
   handleIncrementClick (incrementCount, event) {
+    const {
+      id,
+      count,
+    } = this.props;
+
     this.handleLinkClick(event);
-    incrementCount(this.props.count+1);
+    incrementCount(id, count);
   }
 
   handleDecrementClick(decrementCount, event) {
+    const {
+      id,
+      count,
+    } = this.props;
+
     this.handleLinkClick(event);
-    decrementCount(this.props.count-1);
+    decrementCount(id, count);
   }
 
   render () {

@@ -8,20 +8,17 @@ export const get = (schema) => {
   return Observable.from(
     fetch(`${url}?query=${schema}`, {
       method: 'GET'
-    }).then((data) => {
-      return data.json()
-    })
+    }).then((data) => (data.json()))
   );
 }
 
-export const post = ({ schema }) => {
+export const post = (schema) => {
   return Observable.from(
-    fetch(`${url}`, {
+    fetch(`${url}?query=${schema}`, {
       method: 'POST',
-      body: JSON.stringify(schema),
       headers: {
         'Content-Type': 'application/json'
       }
-    })
+    }).then((data) => (data.json()))
   );
 }

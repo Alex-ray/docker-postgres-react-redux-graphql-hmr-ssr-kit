@@ -20,8 +20,11 @@ export const counterQuerySchema = ({ id }) => (`
 
 export const updateCounterMutation = ({ id, value }) => (`
   mutation {
-    Counter(id: ${id}) {
-      update({with: {value: ${value}}})
+    Counter(id: "${id}") {
+      update(with: {value: ${value}}) {
+        id,
+        value,
+      }
     }
   }
 `);
@@ -29,12 +32,24 @@ export const updateCounterMutation = ({ id, value }) => (`
 export const createCounterMutation = ({ value = 0 }) => (`
     mutation {
       Counter {
-        create({with:{value: ${value}}}}
+        create(with:{value: ${value}}}) {
+          id,
+          value,
+        }
       }
     }
 `);
 
+export const deleteCounterMutation = ({ id }) => (`
+  mutation {
+    Counter(id: "${id}") {
+      delete
+    }
+  }
+`);
+
 export const getCounters   = () => (get(countersQuerySchema({ limit: 100 })));
 export const getCounter    = (id) => (get(counterQuerySchema({ id })));
-export const createCounter = (value) => (get(updateCounterMutation({ value })));
-export const updateCounter = (id, value) => (get(updateCounterMutation({ id, value })));
+export const createCounter = (value) => (post(createCounterMutation({ value })));
+export const deleteCounter = (id) => (post(deleteCounterMutation({ id })));
+export const updateCounter = (id, value) => (post(updateCounterMutation({ id, value })));

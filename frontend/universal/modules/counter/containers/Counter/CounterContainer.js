@@ -17,12 +17,19 @@ import {
 
 class CounterContainer extends Component {
   render () {
-    return (<Counter {...this.props} />);
+    const {
+      id,
+      count,
+      incrementCount,
+      decrementCount,
+    } = this.props;
+    return (<Counter id={id} count={count} incrementCount={incrementCount} decrementCount={decrementCount} />);
   }
 }
 
 CounterContainer.propTypes = {
   // State
+  id: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,
 
   // Dispatchers
@@ -40,8 +47,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    incrementCount: (id, count) => dispatch(counterSetCount(count + 1)),
-    decrementCount: (id, count) => dispatch(counterSetCount(count - 1))
+    incrementCount: (id, count) => dispatch(counterSetCount(id, count + 1)),
+    decrementCount: (id, count) => dispatch(counterSetCount(id, count - 1))
   };
 }
 
