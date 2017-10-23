@@ -1,63 +1,58 @@
-# BLK MAGIC
+# ⚡ 🔮 BLK STACK 🌙 ⚡
 
-TODO:
-Install these things.
+## 💭 What is it?
 
-- 'rxjs
-- 'reselect'
-- 'redux-actions'
+This is the anti framework, framework. A project made up of specific technologies that are easily interchangable.
 
-What is it?
-Basically my ideal full stack starter kit, ready for deployment. Getting the configuration out of the way.
-⚡
-- Docker
-- Docker Scripts (production, development, backup and deployment)
-- Postgres
-- Sequelize
-- Node
-- Nginx (CDN)
-- React
-- React Router 4
-- Redux
-- Server Side Rendering
-- Code Splitting / Lazy Loading
-- Hot Module Reloading
-- Graphql, (sequelize-graphql, rxjs-graphql)
-- RxJs, (redux-observables, rxjs-graphql)
-- Optomistic UI ???
-- CSS Next
-- Webpack
-- Passport for authentication
-⚡
+*Docker: - * This is where our stack starts our app is split up into three containers an Nginx container for serving static files, a Node.js container for the backend and a Postgres container for our database. This also enables for cross platform development and deployment. Robust, Flexible and Dead Simple.
 
----
+*Postges: - * The tried, trued and tested defacto databse. In this project I use the popular sequlize ORM.
 
-This is a starter project for a node + react app that uses docker for dev enironment.  
-Docker and docker-compose is all you need to develop, build & deploy, run development or production mode with a single command.
+*GraphQL: - * A more effecient way to query data from a server. A better way to develop with the interactive graphql interface. This also provides an abstraction layer between our api and database that provides additional flexiblity if we every need to swap it out.
 
-## stack
+*React, Redux, React Router: - * At this point its almost and industry standard. Undirectional data flow, fast render times and extremely flexible.
 
-* stylus
-* react
-* redux
-* sequelize
+*Redux Observables (Rxjs): - * RxJS 5-based middleware for Redux. Compose and cancel async actions to create side effects and more.
 
+*Server Side Rendering: - * We use server side rending by utilizing Universal javascript on the Node.js server. Because were using React its simply a matter of rendering React views on the server.
 
-## get started
+*Code Splitting: - * Split code into bundles so that code is asynchronously loaded by the client.
 
+*Hot Module Reloading: - * Replaces modules that have been changed in real time while preserving the state.
+
+## ⚙ How?
+
+The application works like this.
+
+We use shell scripts to handle docker and related tasks, these are located in the `bin` directory. e.x. `./bin/develop.sh` or `./bin/deploy.sh` (more details on this below)
+
+The shell scripts sets up our docker containers, migrates the database, installs dependencies, compiles source code and launches our servers.
+
+The Nginx server handles static file requests and the Node.js Express server handles all other request. When a request is made we render our React application on the server based on that route and return the output as a html.
+
+Once the Html is sent to the client our React application takes over.
+
+On build our application is split up into bundles for each route. Only that routes bundle is served to the client; when a new route is entered a new bundle is requested and sent to the client.
+
+In addition our core dependencies are split into a seperate bundles and cached our our Nginx server. Everything is fingerprinted.
+
+When developing we spin up a seperate frontend server that handles hot module reloading.
+
+On a more techinical note we use all sorts of goodies that I leave you to explore, things like `reselect`, `redux-actions`, `immutablejs`, `cssnext`, `react-router-redux` etc...
+
+Last but not least I have to give a huge shout out to @Producters for the https://github.com/Producters/docker-node-react-starter which is what this project is based off of.
+
+## 🛠 Setup
 Get latest docker (1.11+) & docker-compose (1.7+):  
 https://www.docker.com/  
 https://docs.docker.com/compose/
 
-Pull seed to your project:
-
+Pull down the repository:
 ```sh
-git init
-git remote add starter git@github.com:Producters/docker-node-react-starter.git
-git pull starter master
+git clone git@github.com:Alex-ray/docker-postgres-react-redux-graphql-hmr-ssr-kit.git
 ```
 
-Start dev server:
+Start the dev server:
 ```sh
 ./bin/develop.sh
 ```
@@ -115,10 +110,9 @@ docker-compose.production.yml - production docker compose config
 
 frontend/                     - frontend stuff
 frontend/package.json         - npm package file with frotnend dependencies
-frontend/src/js/              - javascript code
-frontend/src/js/index.js      - js entry point. include other js deps here
-frontend/src/style/           - stylesheets       
-frontend/src/style/index.styl - stylesheet entry point. include other styl files here
+frontend/dist/                - compiled and production ready client side code
+frontend/universal/           - universal javascript code
+frontend/index.js             - js entry point. include other js deps here
 
 backend/                      - backend stuff
 backend/lib/                  - node app
@@ -197,7 +191,6 @@ e2e tests are implemented using [nightwatch.js](http://nightwatchjs.org/). Test 
 ./bin/test.sh -- --test tests/specs/auth.js --testcase 'User can login via auth0'
 
 ```
-
 
 To debug tests it's possible to vnc into selenium container while its running at localhost:5900 and view the browser. Password is `secret`.
 
