@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Link } from 'react-router-dom';
-
 import {
   counterFetchCounters,
   counterDeleteCounter,
@@ -10,12 +8,7 @@ import {
   counterCountersSelector,
 } from 'universal/modules/counter/ducks/counter.js';
 
-const CounterListItem = ({ id, value, onDelete }) => (
-  <li>
-    <Link to={`/counter/${id}`}>Counter id: {id} value : {value}</Link>
-    <button onClick={onDelete.bind(null, id)}>Delete</button>
-  </li>
-);
+import CountersPage from 'universal/modules/counter/components/CountersPage/CountersPage.js';
 
 class CountersContainer extends Component {
   componentDidMount () {
@@ -30,18 +23,7 @@ class CountersContainer extends Component {
     } = this.props;
 
     return (
-      <div>
-        <button onClick={createCounter}>Create Counter</button>
-        <ul>
-          {counters.map((counter) => (
-            <CounterListItem key={`counter-list-item-{${counter.get('id')}`}
-                             value={counter.get('value')}
-                             id={counter.get('id')}
-                             onDelete={deleteCounter}
-                           />
-          ))}
-        </ul>
-      </div>
+      <CountersPage counters={counters} deleteCounter={deleteCounter} createCounter={createCounter} />
     );
   }
 }
