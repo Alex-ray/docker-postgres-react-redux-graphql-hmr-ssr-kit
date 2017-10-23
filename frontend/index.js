@@ -5,6 +5,9 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import createStore from './universal/redux/createStore';
 
+import 'universal/styles/colors.css';
+import 'universal/styles/reset.css';
+
 import Routes from './universal/routes/Routes.js';
 
 const history = createHistory();

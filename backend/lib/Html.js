@@ -56,7 +56,7 @@ class Html extends Component {
        </head>
        <body>
          <script dangerouslySetInnerHTML={{__html: initialState}} />
-         {PROD ? <div id="mount" dangerouslySetInnerHTML={{__html: root}}></div> : <div id="mount"></div>}
+         {PROD ? <div id="mount" dangerouslySetInnerHTML={{__html: root}}></div> : <div id="mount" style={{ width: '960px' }}></div>}
           {PROD && <script dangerouslySetInnerHTML={{__html: manifest.text}}/>}
           {PROD && <script src={vendor.js}/>}
          <script src={PROD ? bundle.js : 'http://localhost:3000/static/bundle.js'} />

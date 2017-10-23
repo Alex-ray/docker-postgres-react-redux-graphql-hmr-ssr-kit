@@ -2,6 +2,8 @@ import path from 'path';
 
 import webpack from 'webpack';
 
+import postcssNext from 'postcss-cssnext';
+
 const root = process.cwd();
 const SRC = root;
 const BUILD_DIR = path.join(root, 'dist');
@@ -52,19 +54,16 @@ export default {
         use: [
           {loader: 'style-loader'},
           {loader: 'css-loader',
-          options: {
-            root: SRC,
-            modules: true,
-            importLoaders: 1,
-            localIdentName: '[name]_[local]_[hash:base64:5]'
-          }},
+            options: {
+              root: SRC,
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[name]_[local]_[hash:base64:5]'
+            }
+          },
           {
             loader: 'postcss-loader',
-            options: {
-              plugins: function() {
-                return [autoprefixer({browsers: ['last 2 versions']})]
-              }
-            }
+            options: { plugins: () => ([postcssNext()]) }
           }
         ]
       },

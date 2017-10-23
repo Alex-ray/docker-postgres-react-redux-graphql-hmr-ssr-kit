@@ -1,9 +1,11 @@
 import React from 'react';
 
-import CountersListItem from 'universal/modules/counter/components/CounterListItem/CounterListItem.js';
+import CounterListItem from 'universal/modules/counter/components/CounterListItem/CounterListItem.js';
+
+import styles from './counter-list.css';
 
 const CountersList = ({ counters, deleteCounter}) => (
-  <ul>
+  <ul className={styles.list}>
     {counters.map((counter) => (
       <CounterListItem key={`counter-list-item-{${counter.get('id')}`}
                        value={counter.get('value')}
@@ -13,3 +15,5 @@ const CountersList = ({ counters, deleteCounter}) => (
     ))}
   </ul>
 );
+
+export default CountersList;

@@ -4,6 +4,7 @@ import webpack from 'webpack';
 // Plugins
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsWebpackPlugin from 'assets-webpack-plugin';
+import postcssNext from 'postcss-cssnext';
 
 const root = process.cwd();
 const SRC = root;
@@ -11,7 +12,27 @@ const BUILD_DIR = path.join(root, 'dist');
 const ENTRY_FILE = path.join(root, 'index.js');
 
 // Cache vendor && client javascript on CDN...
-const vendor = ['react', 'react-dom', 'react-router', 'react-redux', 'redux'];
+const vendor = [
+  "classnames",
+  "history",
+  "immutable",
+  "prop-types",
+  "react",
+  "react-addons-css-transition-group",
+  "react-dom",
+  "react-redux",
+  "react-router",
+  "react-router-dom",
+  "react-router-redux",
+  "react-tap-event-plugin",
+  "redux",
+  "redux-actions",
+  "redux-observable",
+  "reselect",
+  "rxjs",
+  "systemjs",
+  "whatwg-fetch"
+];
 
 export default {
   target: 'node',
@@ -76,8 +97,8 @@ export default {
             }, {
               loader: 'postcss-loader',
               options: {
-                plugins: function() {
-                  return [autoprefixer({browsers: ['last 2 versions']})]
+                plugins: () => {
+                  return [postcssNext()]
                 }
               }
             }

@@ -52,9 +52,11 @@
     "file-loader": "^0.8.5",
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
+    "postcss": "^6.0.13",
+    "postcss-cssnext": "^3.0.2",
     "postcss-loader": "^0.8.2",
     "style-loader": "^0.13.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack": "3.6.0"
+    "webpack": "3.6.0",
+    "webpack-dev-server": "^1.14.1"
   }
 }
