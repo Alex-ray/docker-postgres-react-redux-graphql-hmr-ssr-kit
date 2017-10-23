@@ -5,6 +5,7 @@ export const countersQuerySchema = ({ limit = 100 }) => (`
     Counters(limit: ${limit}) {
       id,
       value,
+      createdAt,
     }
   }
 `);

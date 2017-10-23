@@ -5,7 +5,7 @@ import {
   counterFetchCounters,
   counterDeleteCounter,
   counterCreateCounter,
-  counterCountersSelector,
+  counterSortedCountersSelector,
 } from 'universal/modules/counter/ducks/counter.js';
 
 import CountersPage from 'universal/modules/counter/components/CountersPage/CountersPage.js';
@@ -30,7 +30,7 @@ class CountersContainer extends Component {
 
 function mapStateToProps (state, ownProps) {
   return {
-    counters: counterCountersSelector(state, ownProps).toArray(),
+    counters: counterSortedCountersSelector(state, ownProps).toArray(),
   };
 }
 

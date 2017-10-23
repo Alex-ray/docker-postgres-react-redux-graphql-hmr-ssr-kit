@@ -116,6 +116,11 @@ export const counterCurrentCounterSelector = createSelector(
   (counters, currentCounterId) => ( counters.get(currentCounterId) )
 );
 
+export const counterSortedCountersSelector = createSelector(
+  counterCountersSelector,
+  (counters) => ( counters.sort((a, b) => ( a.get('createdAt') < b.get('createdAt'))))
+);
+
 export const counterCurrentCounterCountSelector = createSelector(
   counterCurrentCounterSelector,
   (currentCounter) => ( currentCounter ? currentCounter.get('value') : 0 )
