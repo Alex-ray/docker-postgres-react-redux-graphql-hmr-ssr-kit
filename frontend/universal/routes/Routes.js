@@ -16,7 +16,6 @@ const Routes = ({ history }) => (
   <Switch>
     <Route component={() => (
       <AppContainer>
-        {/* <Route component={({ ...routerProps }) => ( */}
         <Switch>
           <Route exact path='/' component={RouteMap.Home} />
           <Route exact path='/counters' component={RouteMap.Counters} />

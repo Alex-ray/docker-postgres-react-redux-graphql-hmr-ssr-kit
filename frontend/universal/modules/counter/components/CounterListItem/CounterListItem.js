@@ -8,7 +8,7 @@ import typeStyles from 'universal/styles/typography.css';
 
 const CounterListItem = ({ id, value, onDelete }) => (
   <li className={styles.listItem}>
-    <Link className={typeStyles.link} to={`/counter/${id}`}>Counter - {value}</Link>
+    <Link className={typeStyles.link} to={`/counter/${id}`}>Counter | {value}</Link>
     <button className={cx(smallSquareButton, styles.button)} onClick={onDelete.bind(null, id)}>Delete</button>
   </li>
 );
