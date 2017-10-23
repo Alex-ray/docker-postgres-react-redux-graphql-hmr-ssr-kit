@@ -4,21 +4,21 @@
 
 This is the anti framework, framework. A project made up of specific technologies that are easily interchangable.
 
-*Docker: - * This is where our stack starts our app is split up into three containers an Nginx container for serving static files, a Node.js container for the backend and a Postgres container for our database. This also enables for cross platform development and deployment. Robust, Flexible and Dead Simple.
+*Docker: -* This is where our stack starts our app is split up into three containers an Nginx container for serving static files, a Node.js container for the backend and a Postgres container for our database. This also enables for cross platform development and deployment. Robust, Flexible and Dead Simple.
 
-*Postges: - * The tried, trued and tested defacto databse. In this project I use the popular sequlize ORM.
+*Postges: -* The tried, trued and tested defacto databse. In this project I use the popular sequlize ORM.
 
-*GraphQL: - * A more effecient way to query data from a server. A better way to develop with the interactive graphql interface. This also provides an abstraction layer between our api and database that provides additional flexiblity if we every need to swap it out.
+*GraphQL: -* A more effecient way to query data from a server. A better way to develop with the interactive graphql interface. This also provides an abstraction layer between our api and database that provides additional flexiblity if we every need to swap it out.
 
-*React, Redux, React Router: - * At this point its almost and industry standard. Undirectional data flow, fast render times and extremely flexible.
+*React, Redux, React Router: -* At this point its almost and industry standard. Undirectional data flow, fast render times and extremely flexible.
 
-*Redux Observables (Rxjs): - * RxJS 5-based middleware for Redux. Compose and cancel async actions to create side effects and more.
+*Redux Observables (Rxjs): -* RxJS 5-based middleware for Redux. Compose and cancel async actions to create side effects and more.
 
-*Server Side Rendering: - * We use server side rending by utilizing Universal javascript on the Node.js server. Because were using React its simply a matter of rendering React views on the server.
+*Server Side Rendering: -* We use server side rending by utilizing Universal javascript on the Node.js server. Because were using React its simply a matter of rendering React views on the server.
 
-*Code Splitting: - * Split code into bundles so that code is asynchronously loaded by the client.
+*Code Splitting: -* Split code into bundles so that code is asynchronously loaded by the client.
 
-*Hot Module Reloading: - * Replaces modules that have been changed in real time while preserving the state.
+*Hot Module Reloading: -* Replaces modules that have been changed in real time while preserving the state.
 
 ## ⚙ How?
 
