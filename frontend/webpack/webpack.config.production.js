@@ -4,7 +4,7 @@ import webpack from 'webpack';
 // Plugins
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
-
+import postcssNext from 'postcss-cssnext';
 
 const root = process.cwd();
 const SRC = root;
@@ -12,13 +12,33 @@ const BUILD_DIR = path.join(root, 'dist');
 const ENTRY_FILE = path.join(root, 'index.js');
 
 // Cache vendor && client javascript on CDN...
-const vendor = ['react', 'react-dom', 'react-router', 'react-redux', 'redux'];
+const vendor = [
+  "classnames",
+  "history",
+  "immutable",
+  "prop-types",
+  "react",
+  "react-addons-css-transition-group",
+  "react-dom",
+  "react-redux",
+  "react-router",
+  "react-router-dom",
+  "react-router-redux",
+  "react-tap-event-plugin",
+  "redux",
+  "redux-actions",
+  "redux-observable",
+  "reselect",
+  "rxjs",
+  "systemjs",
+  "whatwg-fetch"
+];
 
 export default {
   entry : {
     vendor,
     bundle: [
-      'babel-polyfill/dist/polyfill.js', ENTRY_FILE
+      'babel-polyfill/dist/polyfill.js', 'whatwg-fetch', ENTRY_FILE
     ],
     // These need to go in a seperate server build.
     // store: path.join(root, 'universal', 'redux', 'createStore.js'),
@@ -62,7 +82,12 @@ export default {
     }),
     new AssetsPlugin({path: BUILD_DIR, filename: 'assets.json'}),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({'__CLIENT__': true, '__PRODUCTION__': true, 'process.env.NODE_ENV': JSON.stringify('production')})
+    new webpack.DefinePlugin({
+      '__CLIENT__': true,
+      '__PRODUCTION__': true,
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.API_URL': JSON.stringify('')
+    })
   ],
 
   module : {
@@ -86,11 +111,7 @@ export default {
               }
             }, {
               loader: 'postcss-loader',
-              options: {
-                plugins: function() {
-                  return [autoprefixer({browsers: ['last 2 versions']})]
-                }
-              }
+              options: { plugins: () => ([postcssNext()]) }
             }
           ]
         })

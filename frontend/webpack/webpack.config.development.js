@@ -2,6 +2,8 @@ import path from 'path';
 
 import webpack from 'webpack';
 
+import postcssNext from 'postcss-cssnext';
+
 const root = process.cwd();
 const SRC = root;
 const BUILD_DIR = path.join(root, 'dist');
@@ -14,7 +16,7 @@ export default {
   devtool : 'eval',
   entry : {
     bundle: ['babel-polyfill/dist/polyfill.js', 'webpack-dev-server/client?http://0.0.0.0:3000',
-    'webpack/hot/only-dev-server', ENTRY_FILE]
+    'webpack/hot/only-dev-server', 'whatwg-fetch', ENTRY_FILE]
   },
   output : {
     path: BUILD_DIR,
@@ -25,7 +27,13 @@ export default {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({'__CLIENT__': true, '__PRODUCTION__': false, '__DEV__': true, 'process.env.NODE_ENV': JSON.stringify('development')})
+    new webpack.DefinePlugin({
+      '__CLIENT__': true,
+      '__PRODUCTION__': false,
+      '__DEV__': true,
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      'process.env.API_URL': JSON.stringify('http://localhost:8000')
+    })
   ],
   resolve : {
     extensions: ['.js'],
@@ -46,19 +54,16 @@ export default {
         use: [
           {loader: 'style-loader'},
           {loader: 'css-loader',
-          options: {
-            root: SRC,
-            modules: true,
-            importLoaders: 1,
-            localIdentName: '[name]_[local]_[hash:base64:5]'
-          }},
+            options: {
+              root: SRC,
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[name]_[local]_[hash:base64:5]'
+            }
+          },
           {
             loader: 'postcss-loader',
-            options: {
-              plugins: function() {
-                return [autoprefixer({browsers: ['last 2 versions']})]
-              }
-            }
+            options: { plugins: () => ([postcssNext()]) }
           }
         ]
       },

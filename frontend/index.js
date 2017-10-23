@@ -5,12 +5,17 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import createStore from './universal/redux/createStore';
 
+// Styles
+import 'universal/styles/colors.css';
+import 'universal/styles/reset.css';
+
 import Routes from './universal/routes/Routes.js';
 
 const history = createHistory();
 const store = createStore(history);
 
-const mountEl = document.getElementById('mount');
+const MOUNT_NODE = document.getElementById('mount');
+
 const renderApp = (Component) => {
     render(
       <Provider store={store}>
@@ -18,7 +23,7 @@ const renderApp = (Component) => {
           <Routes history={history}/>
         </ConnectedRouter>
       </Provider>,
-      mountEl
+      MOUNT_NODE
     );
 }
 
@@ -26,7 +31,7 @@ renderApp(Routes);
 
 if (module.hot) {
   module.hot.accept('./universal/routes/Routes.js', () => {
-    const nextApp = require('./universal/routes/Routes.js');
-    renderApp(nextApp);
+    const nextRoutes = require('./universal/routes/Routes.js');
+    renderApp(nextRoutes);
   });
 }

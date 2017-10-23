@@ -8,7 +8,7 @@ import { getLogger } from '../logger';
 const dbconf = conf.get('database');
 const sqllogger = getLogger('sql');
 
-export const sequelize = new Sequelize(dbconf.database, dbconf.username, dbconf.password, 
+export const sequelize = new Sequelize(dbconf.database, dbconf.username, dbconf.password,
     {
         ...dbconf,
         logging: sqllogger.info.bind(sqllogger)

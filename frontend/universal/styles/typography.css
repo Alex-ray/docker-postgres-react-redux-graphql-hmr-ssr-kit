@@ -1,0 +1,16 @@
+.title {
+  color: var(--midnight-blue);
+  line-height: 1.5em;
+  font-size: 3rem;
+}
+
+.link {
+  color: var(--midnight-blue);
+  text-decoration: none;
+  font-family: var(--font-family);
+  border-bottom: solid 2px transparent;
+}
+
+.link:hover {
+  border-bottom: solid 2px var(--midnight-blue);
+}

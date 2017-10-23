@@ -16,10 +16,10 @@ const Routes = ({ history }) => (
   <Switch>
     <Route component={() => (
       <AppContainer>
-        {/* <Route component={({ ...routerProps }) => ( */}
         <Switch>
           <Route exact path='/' component={RouteMap.Home} />
-          <Route exact path='/counter' component={RouteMap.Counter} />
+          <Route exact path='/counters' component={RouteMap.Counters} />
+          <Route exact path='/counter/:counterId' component={RouteMap.Counter} />
         </Switch>
       </AppContainer>
     )} />

@@ -8,17 +8,28 @@ import Counter from '../../components/Counter/Counter.js';
 // Actions
 import {
   counterSetCount,
-  counterCountSelector,
+  counterCurrentCounterCountSelector,
 } from '../../ducks/counter.js';
+
+import {
+  locationCurrentCounterId,
+} from 'universal/modules/location/ducks/location';
 
 class CounterContainer extends Component {
   render () {
-    return (<Counter {...this.props} />);
+    const {
+      id,
+      count,
+      incrementCount,
+      decrementCount,
+    } = this.props;
+    return (<Counter id={id} count={count} incrementCount={incrementCount} decrementCount={decrementCount} />);
   }
 }
 
 CounterContainer.propTypes = {
   // State
+  id: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,
 
   // Dispatchers
@@ -28,16 +39,16 @@ CounterContainer.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-  const count = state.counter.get('count');
   return {
-    count: counterCountSelector(state, ownProps),
+    id: locationCurrentCounterId(state, ownProps),
+    count: counterCurrentCounterCountSelector(state, ownProps),
   };
 }
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    incrementCount: count => dispatch(counterSetCount(count)),
-    decrementCount: count => dispatch(counterSetCount(count))
+    incrementCount: (id, count) => dispatch(counterSetCount(id, count + 1)),
+    decrementCount: (id, count) => dispatch(counterSetCount(id, count - 1))
   };
 }
 

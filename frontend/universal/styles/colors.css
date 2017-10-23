@@ -1,0 +1,12 @@
+:root {
+  --midnight-blue: #354263;
+  --bone-white: #fffff8;
+  --dust-white: #f5f5f5;
+  --gray-white: #f1f1f1;
+
+
+  --primary-color: var(--midnight-blue);
+  --secondary-color: var(--bone-white);
+
+  --font-family: system-ui;
+}

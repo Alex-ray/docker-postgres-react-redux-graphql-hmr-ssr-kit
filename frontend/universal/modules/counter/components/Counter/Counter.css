@@ -1,5 +1,7 @@
 .counterContainer {
   position: relative;
+  width: 225px;
+  margin: auto;
 }
 
 .counter {

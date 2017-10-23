@@ -1,0 +1,20 @@
+.listItem {
+  min-width: 70%;
+  display: block;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: solid 1px var(--gray-white);
+}
+
+.listItem:last-of-type {
+  border-bottom: none;
+  margin-bottom: none;
+}
+
+.button {
+  margin-left: 1.5rem;
+}

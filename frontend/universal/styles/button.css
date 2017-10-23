@@ -1,0 +1,66 @@
+.mainButton {
+  font-family: var(--font-family);
+  background-color: var(--bone-white);
+  font-size: 1.6rem;
+  border: solid 0.25rem rgba(53, 66, 99, 0.95);
+  box-shadow: var(--midnight-blue) 0px 1px 2px;
+  transition: all 250ms ease-in-out;
+
+  padding: 1rem 2rem;
+  border-radius: 3rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--midnight-blue);
+}
+
+.mainButton:hover {
+  cursor: pointer;
+  border: solid 0.25rem rgba(53, 66, 99, 1);
+  box-shadow: rgba(53, 66, 99, 0.95) 0px 2px 5px;
+}
+
+.squareButton {
+  font-family: var(--font-family);
+  background-color: var(--dust-white);
+  font-size: 1.6rem;
+  transition: all 250ms ease-in-out;
+  border: none;
+
+  padding: 1rem 2rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--midnight-blue);
+}
+
+.squareButton:active {
+  outline: none;
+}
+
+.squareButton:hover {
+  cursor: pointer;
+  background-color: var(--gray-white);
+}
+
+.smallSquareButton {
+  font-family: var(--font-family);
+  background-color: var(--dust-white);
+  font-size: 1.2rem;
+  transition: all 250ms ease-in-out;
+  border: none;
+
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--midnight-blue);
+}
+
+.smallSquareButton:active {
+  outline: none;
+}
+
+.smallSquareButton:hover {
+  cursor: pointer;
+  background-color: var(--gray-white);
+}
