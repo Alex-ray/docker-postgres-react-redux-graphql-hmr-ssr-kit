@@ -6,7 +6,7 @@ This is the anti framework, framework. A project made up of specific technologie
 
 *__Docker: -__* This is where our stack starts our app is split up into three containers an Nginx container for serving static files, a Node.js container for the backend and a Postgres container for our database. This also enables for cross platform development and deployment. Robust, Flexible and Dead Simple.
 
-*__Postgres: -__* The tried, trued and tested defacto databse. In this project I use the popular sequlize ORM.
+*__Postgres: -__* The tried, trued and tested defacto databse. In this project I use the popular sequelize ORM.
 
 *__GraphQL: -__* A more effecient way to query data from a server. A better way to develop with the interactive graphql interface. This also provides an abstraction layer between our api and database that provides additional flexiblity if we every need to swap it out.
 
