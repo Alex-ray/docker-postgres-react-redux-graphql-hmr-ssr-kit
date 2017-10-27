@@ -2,7 +2,7 @@
 
 ## 💭 What is it?
 
-This is the meta framework, framework. A project made up of specific technologies that are easily interchangable.
+This is a meta framework, framework. A project made up of specific technologies that are easily interchangable.
 
 *__Docker: -__* This is where our stack starts our app is split up into three containers an Nginx container for serving static files, a Node.js container for the backend and a Postgres container for our database. This also enables for cross platform development and deployment. Robust, Flexible and Dead Simple.
 
